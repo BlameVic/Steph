@@ -52,56 +52,56 @@ public class MojangStatusMessage extends AbstractMessageHandler {
 					case "green":
 
 						if (s.getKey().contains("auth.mojang.com")) {
-							temp += "(�2Client �f/ ";
+							temp += "(§2Client §f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey().contains("authserver.mojang.com"))
-							temp += "�2Server�f) ";
+							temp += "§2Server§f) ";
 
 						else if (s.getKey().contains("session.minecraft.net")) {
-							session += "(�2Client �f/ ";
+							session += "(§2Client §f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey()
 								.contains("sessionserver.mojang.com"))
-							session += "�2Server�f) ";
+							session += "§2Server§f) ";
 
 						else
-							b.append("�2");
+							b.append("§2");
 						break;
 					case "yellow":
 						if (s.getKey().contains("auth.mojang.com"))
-							temp += "(�6Client �f/ ";
+							temp += "(§6Client §f/ ";
 						else if (s.getKey().contains("authserver.mojang.com"))
-							temp += "�6Server�f) ";
+							temp += "§6Server§f) ";
 						else if (s.getKey().contains("session.minecraft.net")) {
-							session += "(�6Client �f/ ";
+							session += "(§6Client §f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey()
 								.contains("sessionserver.mojang.com"))
-							session += "�6Server�f) ";
+							session += "§6Server§f) ";
 						else
-							b.append("�6");
+							b.append("§6");
 						break;
 					default:
 						if (s.getKey().contains("auth.mojang.com"))
-							temp += "(�4Client �f/ ";
+							temp += "(§4Client §f/ ";
 						else if (s.getKey().contains("authserver.mojang.com"))
-							temp += "�4Server�f) ";
+							temp += "§4Server§f) ";
 						else if (s.getKey().contains("session.minecraft.net")) {
-							session += "(�4Client �f/ ";
+							session += "(§4Client §f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey()
 								.contains("sessionserver.mojang.com"))
-							session += "�4Server�f) ";
+							session += "§4Server§f) ";
 						else
-							b.append("�4");
+							b.append("§4");
 						break;
 
 					}
@@ -141,7 +141,7 @@ public class MojangStatusMessage extends AbstractMessageHandler {
 					if (!s.getKey().equals("textures.minecraft.net")
 							&& !s.getKey().equals("auth.mojang.com")
 							&& !s.getKey().equals("session.minecraft.net"))
-						b.append("�f|");
+						b.append("§f|");
 
 				}
 			}

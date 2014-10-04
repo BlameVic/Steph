@@ -28,6 +28,7 @@ public class MojangStatusMessage extends AbstractMessageHandler {
 		Collections.addAll(temp, new String[] { "mostats" });
 		Collections.addAll(temp, new String[] { "mojstats" });
 		Collections.addAll(temp, new String[] { "stats" });
+		Collections.addAll(temp, new String[] { "mojang status" });
 		return temp;
 	}
 
@@ -51,56 +52,56 @@ public class MojangStatusMessage extends AbstractMessageHandler {
 					case "green":
 
 						if (s.getKey().contains("auth.mojang.com")) {
-							temp += "(§2Client §f/ ";
+							temp += "(ï¿½2Client ï¿½f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey().contains("authserver.mojang.com"))
-							temp += "§2Server§f) ";
+							temp += "ï¿½2Serverï¿½f) ";
 
 						else if (s.getKey().contains("session.minecraft.net")) {
-							session += "(§2Client §f/ ";
+							session += "(ï¿½2Client ï¿½f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey()
 								.contains("sessionserver.mojang.com"))
-							session += "§2Server§f) ";
+							session += "ï¿½2Serverï¿½f) ";
 
 						else
-							b.append("§2");
+							b.append("ï¿½2");
 						break;
 					case "yellow":
 						if (s.getKey().contains("auth.mojang.com"))
-							temp += "(§6Client §f/ ";
+							temp += "(ï¿½6Client ï¿½f/ ";
 						else if (s.getKey().contains("authserver.mojang.com"))
-							temp += "§6Server§f) ";
+							temp += "ï¿½6Serverï¿½f) ";
 						else if (s.getKey().contains("session.minecraft.net")) {
-							session += "(§6Client §f/ ";
+							session += "(ï¿½6Client ï¿½f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey()
 								.contains("sessionserver.mojang.com"))
-							session += "§6Server§f) ";
+							session += "ï¿½6Serverï¿½f) ";
 						else
-							b.append("§6");
+							b.append("ï¿½6");
 						break;
 					default:
 						if (s.getKey().contains("auth.mojang.com"))
-							temp += "(§4Client §f/ ";
+							temp += "(ï¿½4Client ï¿½f/ ";
 						else if (s.getKey().contains("authserver.mojang.com"))
-							temp += "§4Server§f) ";
+							temp += "ï¿½4Serverï¿½f) ";
 						else if (s.getKey().contains("session.minecraft.net")) {
-							session += "(§4Client §f/ ";
+							session += "(ï¿½4Client ï¿½f/ ";
 							System.out.println("HERE");
 						}
 
 						else if (s.getKey()
 								.contains("sessionserver.mojang.com"))
-							session += "§4Server§f) ";
+							session += "ï¿½4Serverï¿½f) ";
 						else
-							b.append("§4");
+							b.append("ï¿½4");
 						break;
 
 					}
@@ -140,7 +141,7 @@ public class MojangStatusMessage extends AbstractMessageHandler {
 					if (!s.getKey().equals("textures.minecraft.net")
 							&& !s.getKey().equals("auth.mojang.com")
 							&& !s.getKey().equals("session.minecraft.net"))
-						b.append("§f|");
+						b.append("ï¿½f|");
 
 				}
 			}

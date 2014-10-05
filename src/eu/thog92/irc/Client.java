@@ -35,6 +35,7 @@ public class Client implements IClient {
 	@Override
 	public void login() throws IOException {
 		System.out.println("*** Logging onto server (" + host + ":" + port + ").");
+		this.writeToBuffer("TWITCHCLIENT 3");
 		if (this.serverPassword != null) {
 			this.writeToBuffer("PASS " + this.serverPassword + "\r\n");
 		}

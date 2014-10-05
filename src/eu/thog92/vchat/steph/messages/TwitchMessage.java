@@ -34,7 +34,7 @@ public class TwitchMessage extends AbstractMessageHandler {
 		if(sender.getNickname() == null) name = sender.getUsername();
 		else name = sender.getNickname();
 		
-		ircHandler.sendToGlobalChat("<" + name + ">:" +  txt);
+		ircHandler.sendToGlobalChat("" + name + " " +  txt);
 	}
 
 }

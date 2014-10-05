@@ -36,12 +36,14 @@ public class Client implements IClient {
 	public void login() throws IOException {
 		System.out.println("*** Logging onto server (" + host + ":" + port
 				+ ").");
+		this.writeToBuffer("TWITCHCLIENT 3\r\n");
 		if (this.serverPassword != null) {
 			this.writeToBuffer("PASS " + this.serverPassword + "\r\n");
 		}
 
 		this.writeToBuffer("NICK " + username + "\r\n");
-		this.writeToBuffer("TWITCHCLIENT 3");
+
+		//this.socket.setSoTimeout(5 * 60 * 1000);
 
 	}
 
@@ -85,9 +87,9 @@ public class Client implements IClient {
 
 	@Override
 	public void sendToChat(String channel, String message) {
-		System.out.println("PRIVMSG " + channel + " :" + message + "\r\n");
+
 		try {
-			out.write("PRIVMSG " + channel + " :" + message + "\r\n");
+			out.write("PRIVMSG " + channel + " : " + message + "\r\n");
 			out.flush();
 		} catch (Exception e) {
 			System.err.println("Error while send Chat Message " + message);

@@ -9,47 +9,31 @@ import java.util.Map.Entry;
 
 import eu.thog92.irc.Client;
 import eu.thog92.irc.IClient;
+import eu.thog92.irc.cmd.HiCommand;
 import eu.thog92.irc.cmd.ICommand;
 import eu.thog92.irc.util.ClassUtil;
 
 public class IRCHandler {
 	
 	private HashMap<String, ICommand> commands;
-	private IClient irc;
+	private Client irc;
 	private String master;
+	private String nick;
 	
 	public IRCHandler()
 	{
 		commands = new HashMap<String, ICommand>();
-		List<Class<?>> claz = ClassUtil.find("eu.thog92.irc.cmd");
-		for (Class<?> c : claz) {
-			if (c.getName().contains("AbstractCommand")
-					|| c.getName().contains("ICommand"))
-				continue;
-			Constructor<?> constructor;
-			try {
-				constructor = c
-						.getConstructor(new Class[] { Client.class });
-				ICommand instance = (ICommand) constructor
-						.newInstance(new Object[] { irc });
-				commands.put(instance.getCommandName(), instance);
-			} catch (NoSuchMethodException e) {
-			    e.printStackTrace();
-			} catch (SecurityException e) {e.printStackTrace();
-			} catch (InstantiationException e) {e.printStackTrace();
-			} catch (IllegalAccessException e) {e.printStackTrace();
-			} catch (IllegalArgumentException e) {e.printStackTrace();
-			} catch (InvocationTargetException e) {e.printStackTrace();
-			}
-			
-		}
+		nick = "botsteph";
+		irc = new Client("irc.twitch.tv", 6667, nick);
+		HiCommand hi = new HiCommand(irc);
+		commands.put(hi.getCommandName(), hi);
+		System.out.println(commands);
 	}
 	
 	public void connect()
 	{
-		String nick = "botsteph";
-		irc = new Client("irc.twitch.tv", 6667, nick);
-		irc.setServerPassword("oauth:TOKEN");
+		
+		irc.setServerPassword("oauth:MASTER");
 
 		try {
 			irc.connect();
@@ -97,7 +81,7 @@ public class IRCHandler {
 			else if (line.contains("PRIVMSG " + master)
 					|| line.contains("PRIVMSG " + nick)) {
 				System.out.println(line);
-				String username = "Master";
+				String username = line.substring(1, line.indexOf("!"));
 				String str = "PRIVMSG " + master + " :";
 				str = line.substring(line.indexOf(str) + str.length());
 				if (str.startsWith("?") || str.toLowerCase().contains("steph")) {
@@ -110,7 +94,7 @@ public class IRCHandler {
 						}
 					}
 					if (command != null)
-						command.processCommand(username, new String [] {str});
+						command.processCommand(username.toLowerCase(), new String [] {str});
 //					else
 //						irc.sendToChat(channel, "What do you mean?");
 

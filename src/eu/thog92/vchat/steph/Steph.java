@@ -89,4 +89,10 @@ public class Steph implements IChatBot {
 		this.ircHandler.disconnect();
 	}
 
+	@Override
+	public void onCommandMessage(String command, String[] args, String message) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

@@ -34,13 +34,14 @@ public class Client implements IClient {
 
 	@Override
 	public void login() throws IOException {
-		System.out.println("*** Logging onto server (" + host + ":" + port + ").");
-		this.writeToBuffer("TWITCHCLIENT 3");
+		System.out.println("*** Logging onto server (" + host + ":" + port
+				+ ").");
 		if (this.serverPassword != null) {
 			this.writeToBuffer("PASS " + this.serverPassword + "\r\n");
 		}
-		
+
 		this.writeToBuffer("NICK " + username + "\r\n");
+		this.writeToBuffer("TWITCHCLIENT 3");
 
 	}
 
@@ -53,7 +54,7 @@ public class Client implements IClient {
 				try {
 					out.write("JOIN " + channel + "\r\n");
 					out.flush();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					System.err.println("Error while joining " + channel);
 				}
 			}
@@ -67,11 +68,13 @@ public class Client implements IClient {
 			@Override
 			public void run() {
 				try {
-					out.write("QUIT Bye!\r\n");
-					out.flush();
+					if (!socket.isClosed()) {
+						out.write("QUIT Bye!\r\n");
+						out.flush();
 
-					if (!socket.isClosed())
 						socket.close();
+					}
+
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -82,10 +85,11 @@ public class Client implements IClient {
 
 	@Override
 	public void sendToChat(String channel, String message) {
+		System.out.println("PRIVMSG " + channel + " :" + message + "\r\n");
 		try {
 			out.write("PRIVMSG " + channel + " :" + message + "\r\n");
 			out.flush();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			System.err.println("Error while send Chat Message " + message);
 		}
 
@@ -99,7 +103,7 @@ public class Client implements IClient {
 				try {
 					out.write(buffer);
 					out.flush();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					System.err.println("Error while send " + buffer);
 				}
 			}
@@ -111,7 +115,7 @@ public class Client implements IClient {
 	public String getLastLine() {
 		try {
 			return in.readLine();
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return null;
 		}
 	}
@@ -129,7 +133,7 @@ public class Client implements IClient {
 					else
 						out.write(id.replace("PING", "PONG"));
 					out.flush();
-				} catch (IOException e) {
+				} catch (Exception e) {
 					System.err.println("Error while pong " + id);
 				}
 			}

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.thog92.irc.IClient;
+import eu.thog92.vchat.steph.messages.BridgeMessage;
 import eu.thog92.vchat.steph.messages.HelpMessage;
 import eu.thog92.vchat.steph.messages.HiMessage;
 import eu.thog92.vchat.steph.messages.IMessageHandler;
@@ -35,6 +36,8 @@ public class Steph implements IChatBot {
 //		this.messageHandlers.add(new HelpMessage(botHandler));
 		this.messageHandlers.add(new HiMessage(botHandler));
 		this.messageHandlers.add(new TwitchMessage(botHandler, ircHandler));
+		this.messageHandlers.add(new BridgeMessage(botHandler, ircHandler));
+		
 //		this.messageHandlers.add(new MojangStatusMessage(botHandler));
 		
 	}

@@ -9,32 +9,38 @@ import vic.mod.chat.api.bot.IBotHandler;
 import vic.mod.chat.api.bot.IChannelBase;
 import vic.mod.chat.api.bot.IChatEntity;
 
-public class TwitchMessage extends AbstractMessageHandler {
+public class BridgeMessage extends AbstractMessageHandler {
 
 	private IRCHandler ircHandler;
 	
-	public TwitchMessage(IBotHandler botHandler, IRCHandler ircHandler) {
+	public BridgeMessage(IBotHandler botHandler, IRCHandler ircHandler) {
 		super(botHandler);
 		this.ircHandler = ircHandler;
 	}
-
 	@Override
 	public List<String> getMessageNames() {
 		ArrayList<String> temp = new ArrayList<String>();
-		Collections.addAll(temp, new String[] {"?twitch"});
+		Collections.addAll(temp, new String[] {"?bridge"});
 		return temp;
 	}
 
 	@Override
-	public void processMessage(String message, String match, IChatEntity sender,
-			IChannelBase channel) {
-		
+	public void processMessage(String message, String match,
+			IChatEntity sender, IChannelBase channel) {
+		// TODO Auto-generated method stub
 		String txt = message.substring(message.indexOf(match) + match.length());
-		String name = "Master";
-		if(sender.getNickname() == null) name = sender.getUsername();
-		else name = sender.getNickname();
 		
-		ircHandler.sendToGlobalChat("<" + name + ">:" +  txt);
+		if(txt.contains("reconnect"))
+		{
+			ircHandler.disconnect();
+			new Thread() {
+				public void run() 
+				{
+					ircHandler.disconnect();
+					ircHandler.connect();
+				};
+			}.start();
+		}
 	}
 
 }

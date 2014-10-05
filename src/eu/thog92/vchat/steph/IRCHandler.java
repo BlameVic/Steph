@@ -75,8 +75,8 @@ public class IRCHandler {
 		}
 		System.out.println("ICI");
 		master = "#copygirl";
-		irc.join(master);
-		irc.sendToChat(master, "Hi");
+		irc.join("#copygirl");
+		
 
 		// Keep reading lines from the server.
 		while ((line = irc.getLastLine()) != null) {
@@ -86,9 +86,18 @@ public class IRCHandler {
 			}else if (line.startsWith("PING:")) {
 				irc.pong(line.substring(5), true);
 			}
+			else if(line.contains("JOIN"))
+			{
+				String username = line.substring(1, line.indexOf("!"));
+				if(username.toLowerCase().equals("botsteph"))
+					irc.sendToChat(master, "Hi");
+				
+				System.out.println(username);
+			}
 			else if (line.contains("PRIVMSG " + master)
 					|| line.contains("PRIVMSG " + nick)) {
-				String username = line.substring(1, line.indexOf("!"));
+				System.out.println(line);
+				String username = "Master";
 				String str = "PRIVMSG " + master + " :";
 				str = line.substring(line.indexOf(str) + str.length());
 				if (str.startsWith("?") || str.toLowerCase().contains("steph")) {

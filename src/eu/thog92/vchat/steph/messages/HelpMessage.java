@@ -24,7 +24,7 @@ public class HelpMessage extends AbstractMessageHandler {
 	}
 
 	@Override
-	public void processMessage(String message, IChatEntity sender,
+	public void processMessage(String message, String match, IChatEntity sender,
 			IChannelBase channel) {
 		botHandler.sendGlobalMessage("Help ? Not yet sorry");
 	}

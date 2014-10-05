@@ -9,6 +9,6 @@ public interface IMessageHandler {
 
 	public List<String> getMessageNames();
 
-	public void processMessage(String message, IChatEntity sender,
+	public void processMessage(String message, String match, IChatEntity sender,
 			IChannelBase channel);
 }

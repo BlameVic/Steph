@@ -33,7 +33,7 @@ public class MojangStatusMessage extends AbstractMessageHandler {
 	}
 
 	@Override
-	public void processMessage(String message, IChatEntity sender,
+	public void processMessage(String message, String match, IChatEntity sender,
 			IChannelBase channel) {
 		try {
 			// irc.sendToChat(irc.getChannel(), "Mojang Server Status :");

@@ -20,7 +20,7 @@ public class BridgeMessage extends AbstractMessageHandler {
 	@Override
 	public List<String> getMessageNames() {
 		ArrayList<String> temp = new ArrayList<String>();
-		Collections.addAll(temp, new String[] {"?bridge"});
+		Collections.addAll(temp, new String[] {"?bridge", "bridge"});
 		return temp;
 	}
 
@@ -30,7 +30,7 @@ public class BridgeMessage extends AbstractMessageHandler {
 		// TODO Auto-generated method stub
 		String txt = message.substring(message.indexOf(match) + match.length());
 		
-		if(txt.contains("reconnect"))
+		if(txt.contains("reconnect") && sender.isOperator())
 		{
 			ircHandler.disconnect();
 			new Thread() {

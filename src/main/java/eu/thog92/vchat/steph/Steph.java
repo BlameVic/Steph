@@ -9,7 +9,7 @@ import eu.thog92.vchat.steph.messages.HelpMessage;
 import eu.thog92.vchat.steph.messages.HiMessage;
 import eu.thog92.vchat.steph.messages.IMessageHandler;
 import eu.thog92.vchat.steph.messages.MojangStatusMessage;
-import eu.thog92.vchat.steph.messages.TwitchMessage;
+import eu.thog92.vchat.steph.messages.ToIRCMessage;
 import vic.mod.chat.api.bot.IBotHandler;
 import vic.mod.chat.api.bot.IChannelBase;
 import vic.mod.chat.api.bot.IChatBot;
@@ -33,12 +33,12 @@ public class Steph implements IChatBot {
 		this.handler = botHandler;
 		this.ircHandler = new IRCHandler();
 		this.messageHandlers = new ArrayList<IMessageHandler>();
-//		this.messageHandlers.add(new HelpMessage(botHandler));
+		this.messageHandlers.add(new HelpMessage(botHandler));
 		this.messageHandlers.add(new HiMessage(botHandler));
-		this.messageHandlers.add(new TwitchMessage(botHandler, ircHandler));
+		this.messageHandlers.add(new ToIRCMessage(botHandler, ircHandler));
 		this.messageHandlers.add(new BridgeMessage(botHandler, ircHandler));
 		
-//		this.messageHandlers.add(new MojangStatusMessage(botHandler));
+		this.messageHandlers.add(new MojangStatusMessage(botHandler));
 		
 	}
 

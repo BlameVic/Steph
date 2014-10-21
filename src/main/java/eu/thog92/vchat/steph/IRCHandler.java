@@ -23,8 +23,8 @@ public class IRCHandler {
 	public IRCHandler()
 	{
 		commands = new HashMap<String, ICommand>();
-		nick = "botsteph";
-		irc = new Client("irc.twitch.tv", 6667, nick);
+		nick = "NGNLSteph";
+		irc = new Client("irc.esper.net", 6669, nick);
 		HiCommand hi = new HiCommand(irc);
 		commands.put(hi.getCommandName(), hi);
 		System.out.println(commands);
@@ -32,8 +32,6 @@ public class IRCHandler {
 	
 	public void connect()
 	{
-		
-		irc.setServerPassword("oauth:MASTER");
 
 		try {
 			irc.connect();
@@ -50,7 +48,7 @@ public class IRCHandler {
 				
 				// We are now logged in.
 				break;
-			} else if (line.startsWith("PING:")) {
+			} else if (line.startsWith("PING")) {
 				irc.pong(line.substring(5), true);
 			} else if (line.indexOf("433") >= 0) {
 				System.out.println("Nickname is already in use.");
@@ -58,8 +56,8 @@ public class IRCHandler {
 			}
 		}
 		System.out.println("ICI");
-		master = "#copygirl";
-		irc.join("#copygirl");
+		master = "#Thog";
+		irc.join("#Thog");
 		
 
 		// Keep reading lines from the server.

@@ -17,7 +17,7 @@ public class HiMessage extends AbstractMessageHandler {
 	@Override
 	public List<String> getMessageNames() {
 		ArrayList<String> temp = new ArrayList<String>();
-		Collections.addAll(temp, new String[] {"hi"});
+		Collections.addAll(temp, new String[] {"hi", "hey"});
 		return temp;
 	}
 
@@ -26,7 +26,7 @@ public class HiMessage extends AbstractMessageHandler {
 			IChannelBase channel) {
 		
 		String name = "Master";
-		if(sender.getNickname() == null) name = sender.getUsername();
+		if(sender.getNickname() == null || (!sender.isOperator())) name = sender.getUsername();
 		else if(!(sender.getNickname().equals("Vic") || (sender.getNickname().equals("Jibril")))) name = sender.getNickname();
 		this.botHandler.sendGlobalMessage("Hey " + name + "!");
 

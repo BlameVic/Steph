@@ -18,7 +18,7 @@ public interface IClient {
 	
 	public String getLastLine();
 
-	public void pong(String id, boolean reply);
+	public void pong(String id, boolean format);
 	
 	public String getChannel();
 

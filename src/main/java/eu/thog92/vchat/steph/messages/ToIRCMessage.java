@@ -9,11 +9,11 @@ import vic.mod.chat.api.bot.IBotHandler;
 import vic.mod.chat.api.bot.IChannelBase;
 import vic.mod.chat.api.bot.IChatEntity;
 
-public class TwitchMessage extends AbstractMessageHandler {
+public class ToIRCMessage extends AbstractMessageHandler {
 
 	private IRCHandler ircHandler;
 	
-	public TwitchMessage(IBotHandler botHandler, IRCHandler ircHandler) {
+	public ToIRCMessage(IBotHandler botHandler, IRCHandler ircHandler) {
 		super(botHandler);
 		this.ircHandler = ircHandler;
 	}
@@ -21,7 +21,7 @@ public class TwitchMessage extends AbstractMessageHandler {
 	@Override
 	public List<String> getMessageNames() {
 		ArrayList<String> temp = new ArrayList<String>();
-		Collections.addAll(temp, new String[] {"?twitch"});
+		Collections.addAll(temp, new String[] {"?irc"});
 		return temp;
 	}
 

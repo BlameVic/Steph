@@ -12,5 +12,6 @@ repositories {
 
 dependencies {
     compile "com.google.code.gson:gson:2.3"
+    compile "org.yaml:snakeyaml:1.14"
     compile "vic.mod.chat:vChat:0.2r14"
 }

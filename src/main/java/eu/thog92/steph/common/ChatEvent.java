@@ -1,12 +1,36 @@
 package eu.thog92.steph.common;
 
+/**
+ * Created by rx14 on 29/10/14.
+ */
 public class ChatEvent {
-	IMessageSender sender;
-	String         message;
+	ISteph sender;
+	String message;
+    String channel;
 	
-	public ChatEvent(IMessageSender sender, String message) {
+	public ChatEvent(ISteph sender, String message, String channel) {
 		this.sender  = sender;
 		this.message = message;
+        this.channel = channel;
 	}
-}
 
+    public void sendMessage(String message, String channel) {
+        sender.sendMessage(message, channel);
+    }
+
+    public void sendMessage(String message) {
+        sendMessage(message, this.channel);
+    }
+
+    public ISteph getSender() {
+        return sender;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public String getChannel() {
+        return channel;
+    }
+}

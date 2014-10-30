@@ -1,4 +1,4 @@
-package eu.thog92.vchat.steph.messages;
+package eu.thog92.steph.vchat.messages;
 
 import java.util.List;
 

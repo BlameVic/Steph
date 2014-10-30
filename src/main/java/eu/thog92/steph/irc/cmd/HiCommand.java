@@ -1,6 +1,6 @@
-package eu.thog92.irc.cmd;
+package eu.thog92.steph.irc.cmd;
 
-import eu.thog92.irc.Client;
+import eu.thog92.steph.irc.Client;
 
 
 

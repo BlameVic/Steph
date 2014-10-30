@@ -1,4 +1,4 @@
-package eu.thog92.irc;
+package eu.thog92.steph.irc;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

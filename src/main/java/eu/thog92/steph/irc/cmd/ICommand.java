@@ -1,4 +1,4 @@
-package eu.thog92.irc.cmd;
+package eu.thog92.steph.irc.cmd;
 
 public interface ICommand {
 	

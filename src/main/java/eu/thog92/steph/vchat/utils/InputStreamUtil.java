@@ -1,4 +1,4 @@
-package eu.thog92.vchat.steph.utils;
+package eu.thog92.steph.vchat.utils;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

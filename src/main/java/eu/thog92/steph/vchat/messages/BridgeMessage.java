@@ -1,10 +1,10 @@
-package eu.thog92.vchat.steph.messages;
+package eu.thog92.steph.vchat.messages;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import eu.thog92.vchat.steph.IRCHandler;
+import eu.thog92.steph.vchat.IRCHandler;
 import vic.mod.chat.api.bot.IBotHandler;
 import vic.mod.chat.api.bot.IChannelBase;
 import vic.mod.chat.api.bot.IChatEntity;

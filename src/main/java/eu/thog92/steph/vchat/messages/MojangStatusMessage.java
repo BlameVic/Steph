@@ -1,4 +1,4 @@
-package eu.thog92.vchat.steph.messages;
+package eu.thog92.steph.vchat.messages;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import vic.mod.chat.api.bot.IChatEntity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import eu.thog92.vchat.steph.utils.InputStreamUtil;
+import eu.thog92.steph.vchat.utils.InputStreamUtil;
 
 public class MojangStatusMessage extends AbstractMessageHandler {
 

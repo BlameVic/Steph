@@ -1,4 +1,4 @@
-package eu.thog92.irc.util;
+package eu.thog92.steph.irc.util;
 
 import java.io.File;
 import java.io.IOException;

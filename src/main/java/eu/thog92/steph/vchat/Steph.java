@@ -1,15 +1,15 @@
-package eu.thog92.vchat.steph;
+package eu.thog92.steph.vchat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.thog92.irc.IClient;
-import eu.thog92.vchat.steph.messages.BridgeMessage;
-import eu.thog92.vchat.steph.messages.HelpMessage;
-import eu.thog92.vchat.steph.messages.HiMessage;
-import eu.thog92.vchat.steph.messages.IMessageHandler;
-import eu.thog92.vchat.steph.messages.MojangStatusMessage;
-import eu.thog92.vchat.steph.messages.ToIRCMessage;
+import eu.thog92.steph.irc.IClient;
+import eu.thog92.steph.vchat.messages.BridgeMessage;
+import eu.thog92.steph.vchat.messages.HelpMessage;
+import eu.thog92.steph.vchat.messages.HiMessage;
+import eu.thog92.steph.vchat.messages.IMessageHandler;
+import eu.thog92.steph.vchat.messages.MojangStatusMessage;
+import eu.thog92.steph.vchat.messages.ToIRCMessage;
 import vic.mod.chat.api.bot.IBotHandler;
 import vic.mod.chat.api.bot.IChannelBase;
 import vic.mod.chat.api.bot.IChatBot;

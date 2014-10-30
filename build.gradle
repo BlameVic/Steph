@@ -2,9 +2,12 @@ apply plugin: 'java'
 
 repositories {
     mavenCentral()
+    maven {
+        url "http://dl.bintray.com/rx14/ModMaven"
+    }
 }
 
 dependencies {
     compile 'com.google.code.gson:gson:2.3'
-    compile fileTree(dir: 'libs', include: '*.jar')
+    compile "vic.mod.chat:vChat:0.2r14"
 }

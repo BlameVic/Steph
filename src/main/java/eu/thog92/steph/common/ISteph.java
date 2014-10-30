@@ -13,6 +13,7 @@ public interface ISteph {
     public void sendPrivateMessage(String message, String user);
 
     public ChatEvent getNextEvent();
+    public boolean   hasNextEvent();
 
     public List<String> getChannels();
 
@@ -24,6 +25,8 @@ public interface ISteph {
 
     public void start();
     public void stop();
+
+    public String getName();
 
     public void                setConfig(Map<String, String> config) throws InvalidConfigException;
     public Map<String, String> getConfig();

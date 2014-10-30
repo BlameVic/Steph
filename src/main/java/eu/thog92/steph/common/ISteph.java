@@ -19,12 +19,12 @@ public interface ISteph {
     public void joinChannel(String channel);
     public void leaveChannel(String channel);
 
-    public void setMainChannel(String channel);
+    public void   setMainChannel(String channel);
     public String getMainChannel();
 
     public void start();
     public void stop();
 
-    public void setConfig(Map<String, String> config) throws InvalidConfigException;
+    public void                setConfig(Map<String, String> config) throws InvalidConfigException;
     public Map<String, String> getConfig();
 }

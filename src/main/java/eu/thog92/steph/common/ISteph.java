@@ -5,9 +5,6 @@ import eu.thog92.steph.common.exceptions.InvalidConfigException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by rx14 on 29/10/14.
- */
 public interface ISteph {
     public void sendMessage(String message, String channel);
     public void sendPrivateMessage(String message, String user);

@@ -7,9 +7,6 @@ import eu.thog92.steph.common.exceptions.InvalidConfigException;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by rx14 on 30/10/14.
- */
 public class IRCSteph implements ISteph {
     public IRCSteph() {
 

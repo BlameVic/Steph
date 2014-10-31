@@ -1,8 +1,5 @@
 package eu.thog92.steph.common;
 
-/**
- * Created by rx14 on 29/10/14.
- */
 public class ChatEvent {
     ISteph sender;
     String message;

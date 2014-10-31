@@ -1,4 +1,4 @@
-package eu.thog92.steph.vchat.messages;
+package eu.thog92.steph.common.handlers.messages;
 
 import vic.mod.chat.api.bot.IBotHandler;
 

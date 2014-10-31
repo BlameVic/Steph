@@ -1,17 +1,12 @@
 package eu.thog92.steph.vchat;
 
 import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 
 import eu.thog92.steph.irc.Client;
-import eu.thog92.steph.irc.IClient;
-import eu.thog92.steph.irc.cmd.HiCommand;
-import eu.thog92.steph.irc.cmd.ICommand;
-import eu.thog92.steph.irc.util.ClassUtil;
+import eu.thog92.steph.common.handlers.cmd.HiCommand;
+import eu.thog92.steph.common.handlers.cmd.ICommand;
 
 public class IRCHandler {
 	

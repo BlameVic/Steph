@@ -51,11 +51,11 @@ public class IRCSteph implements ISteph {
         return null;
     }
 
-    public void start() {
+    public void connect() {
 
     }
 
-    public void stop() {
+    public void disconnect() {
 
     }
 

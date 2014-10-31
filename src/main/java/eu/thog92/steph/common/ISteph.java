@@ -23,8 +23,8 @@ public interface ISteph {
     public void   setMainChannel(String channel);
     public String getMainChannel();
 
-    public void start();
-    public void stop();
+    public void connect();
+    public void disconnect();
 
     public String getName();
 

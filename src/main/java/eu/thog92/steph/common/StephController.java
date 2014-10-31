@@ -14,10 +14,12 @@ public class StephController {
     Map config;
 
     List<IMessageHandler> handlers;
-    ISteph steph;
+    List<ISteph>          stephs;
 
-    public StephController(String configFile, ISteph steph) {
-        this.steph = steph;
+    public StephController(String configFile, ISteph... stephs) {
+        for (ISteph steph : stephs) {
+            this.stephs.add(steph);
+        }
 
         Yaml yaml = new Yaml();
         InputStream configFileStream;
@@ -32,16 +34,21 @@ public class StephController {
 
         config = (Map)yaml.load(configFileStream);
 
-        Map<String, String> stephConfig = (Map<String, String>)config.get(steph.getName());
-        System.out.println(stephConfig.toString());
-        try {
-            steph.setConfig(stephConfig);
-        } catch (InvalidConfigException e) {
-            System.out.println("Invalid config in \"" + configFile + "\":");
-            e.printStackTrace();
-            System.exit(2);
+        for (ISteph steph : stephs) {
+            Map<String, String> stephConfig = (Map<String, String>)config.get(steph.getName());
+
+            System.out.println("Config for: " + steph.getName());
+            System.out.println(stephConfig.toString());
+
+            try {
+                steph.setConfig(stephConfig);
+            } catch (InvalidConfigException e) {
+                System.out.println("Invalid config in \"" + configFile + "\":");
+                e.printStackTrace();
+                System.exit(2);
+            }
+            steph.connect();
         }
-        steph.start();
     }
 
     /**
@@ -49,12 +56,16 @@ public class StephController {
      * @return Returns true when the bot should exit and disconnect.
      */
     public boolean poll() {
-        if (steph.hasNextEvent()) {
-            ChatEvent event = steph.getNextEvent();
+        boolean shouldStop = false;
+        for (ISteph steph : stephs) {
+            while (steph.hasNextEvent()) {
+                ChatEvent event = steph.getNextEvent();
+            }
         }
-        // steph.stop();
+
+        // steph.disconnect();
         // return true;
-        return false;
+        return shouldStop;
     }
 
     public void startPoll() {

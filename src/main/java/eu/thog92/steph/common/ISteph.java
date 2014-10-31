@@ -9,8 +9,8 @@ public interface ISteph {
     public void sendMessage(String message, String channel);
     public void sendPrivateMessage(String message, String user);
 
-    public ChatEvent getNextEvent();
-    public boolean   hasNextEvent();
+    public ChatEvent getCurrentEvent();
+    public boolean   moveNextEvent();
 
     public List<String> getChannels();
 

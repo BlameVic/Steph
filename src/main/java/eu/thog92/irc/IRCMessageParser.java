@@ -13,12 +13,12 @@ public class IRCMessageParser {
 
         if (message.startsWith(":")) {
             int prefixEnd = message.indexOf(" ");
-            prefix = message.substring(1, prefixEnd - 1);
+            prefix = message.substring(1, prefixEnd);
             theRest = message.substring(prefixEnd + 1);
         }
 
         int commandEnd = theRest.indexOf(" ");
-        command = theRest.substring(0, commandEnd - 1);
+        command = theRest.substring(0, commandEnd);
 
         params = theRest.substring(commandEnd + 1);
 
@@ -38,7 +38,7 @@ public class IRCMessageParser {
     }
 
     public static Prefix parsePrefix(String prefix) {
-        String name;
+        String name = null;
         String user = null;
         String host = null;
 
@@ -58,11 +58,11 @@ public class IRCMessageParser {
             case 2:
                 int hostIndex = prefix.indexOf("@");
                 host = prefix.substring(hostIndex + 1);
-                prefix = prefix.substring(0, hostIndex - 1);
+                prefix = prefix.substring(0, hostIndex);
 
             case 1:
                 int userIndex = prefix.indexOf("!");
-                name = prefix.substring(0, userIndex - 1);
+                name = prefix.substring(0, userIndex);
                 user = prefix.substring(userIndex + 1);
                 break;
         }

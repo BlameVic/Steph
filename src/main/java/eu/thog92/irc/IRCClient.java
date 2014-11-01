@@ -7,6 +7,9 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
+import static eu.thog92.irc.IRCMessageParser.*;
+import static eu.thog92.irc.IRCMessageBuilder.*;
+
 public class IRCClient {
     private String hostname;
     private int    port;
@@ -18,9 +21,6 @@ public class IRCClient {
     private Socket         sock;
     private BufferedReader in;
     private BufferedWriter out;
-
-    IRCMessageParser  parser;
-    IRCMessageBuilder builder;
 
     List<String> channels = new ArrayList<String>();
 

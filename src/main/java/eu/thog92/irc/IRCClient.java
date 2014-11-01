@@ -62,16 +62,26 @@ public class IRCClient {
     }
 
     /**
-     * Blocks until the next ping message.
+     * Blocks until the next command specified
+     * @param command The command to watch for e.g. PING or 001
+     * @return All of the messages recieved, including the one that triggered the return
      */
-    public void waitPing() {
+    public List<String> waitForCommand(String command, boolean processping) {
+        List<String> lines = new ArrayList<String>();
         while (true) {
             String line = readLine();
             if (line != null) {
-                if (processPing(line))
+                lines.add(line);
+                if (processping) processPing(line);
+                if (getCommand(line).equals(command))
                     break;
             }
         }
+        return lines;
+    }
+
+    public List<String> waitForCommand(String command) {
+        return waitForCommand(command, true);
     }
 
     public boolean joinChannel(String channel) {
@@ -106,11 +116,11 @@ public class IRCClient {
     }
 
     public String getMessageBody(String line) {
-
+        return null;
     }
 
     public String getChannel(String line) {
-
+        return null;
     }
 
     /**

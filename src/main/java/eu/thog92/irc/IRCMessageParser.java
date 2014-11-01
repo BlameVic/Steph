@@ -4,6 +4,18 @@ package eu.thog92.irc;
  * Created by rx14 on 31/10/14.
  */
 public class IRCMessageParser {
+    public static String getPrefix(String message) {
+        return parseMessage(message).prefix;
+    }
+
+    public static String getCommand(String message) {
+        return parseMessage(message).command;
+    }
+
+    public static String getParams(String message) {
+        return parseMessage(message).params;
+    }
+
     public static Message parseMessage(String message) {
         String prefix = null;
         String command;
@@ -35,6 +47,16 @@ public class IRCMessageParser {
             this.command = command;
             this.params = params;
         }
+    public static String getName(String prefix) {
+        return parsePrefix(prefix).name;
+    }
+
+    public static String getUser(String prefix) {
+        return parsePrefix(prefix).user;
+    }
+
+    public static String getHost(String prefix) {
+        return parsePrefix(prefix).host;
     }
 
     public static Prefix parsePrefix(String prefix) {

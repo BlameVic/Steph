@@ -17,6 +17,8 @@ public class IRCMessageParser {
     }
 
     public static Message parseMessage(String message) {
+        if (message == null) return null;
+
         String prefix = null;
         String command;
         String params;
@@ -47,6 +49,17 @@ public class IRCMessageParser {
             this.command = command;
             this.params = params;
         }
+
+        @Override
+        public String toString() {
+            return "Message{" +
+                    "prefix='" + prefix + '\'' +
+                    ", command='" + command + '\'' +
+                    ", params='" + params + '\'' +
+                    '}';
+        }
+    }
+
     public static String getName(String prefix) {
         return parsePrefix(prefix).name;
     }
@@ -60,6 +73,8 @@ public class IRCMessageParser {
     }
 
     public static Prefix parsePrefix(String prefix) {
+        if (prefix == null) return null;
+
         String name = null;
         String user = null;
         String host = null;
@@ -93,14 +108,23 @@ public class IRCMessageParser {
     }
 
     public static class Prefix {
-        String name; //Either servenername or nick
-        String user;
-        String host;
+        public String name; //Either servenername or nick
+        public String user;
+        public String host;
 
         public Prefix(String name, String user, String host) {
             this.name = name;
             this.user = user;
             this.host = host;
+        }
+
+        @Override
+        public String toString() {
+            return "Prefix{" +
+                    "name='" + name + '\'' +
+                    ", user='" + user + '\'' +
+                    ", host='" + host + '\'' +
+                    '}';
         }
     }
 }

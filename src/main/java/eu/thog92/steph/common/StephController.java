@@ -58,8 +58,8 @@ public class StephController {
     public boolean poll() {
         boolean shouldStop = false;
         for (ISteph steph : stephs) {
-            while (steph.hasNextEvent()) {
-                ChatEvent event = steph.getNextEvent();
+            while (steph.moveNextEvent()) {
+                ChatEvent event = steph.getCurrentEvent();
             }
         }
 

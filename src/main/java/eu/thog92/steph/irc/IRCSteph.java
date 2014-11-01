@@ -97,7 +97,7 @@ public class IRCSteph implements ISteph {
 
         String nick = client.getNick(line);
         String message = client.getMessageBody(line);
-        String channel;
+        String channel = null;
 
         return new ChatEvent(new IRCSteph(), message, channel, nick);
     }

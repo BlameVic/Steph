@@ -1,16 +1,18 @@
 package eu.thog92.steph.common;
 
-public class ChatEvent {
-    ISteph receiver;
-    String message;
-    String channel;
-    String sender;
+import eu.thog92.irc.IRCMessageParser;
 
-    public ChatEvent(ISteph receiver, String message, String channel, String sender) {
+public class ChatEvent {
+    ISteph                   receiver;
+    IRCMessageParser.Message message;
+    StephController          controller;
+    IEventMatcher            matcher;
+
+    public ChatEvent(ISteph receiver, IRCMessageParser.Message message, StephController controller, IEventMatcher matcher) {
         this.receiver = receiver;
         this.message = message;
-        this.channel = channel;
-        this.sender = sender;
+        this.controller = controller;
+        this.matcher = matcher;
     }
 
     public void sendMessage(String message, String channel) {
@@ -18,22 +20,6 @@ public class ChatEvent {
     }
 
     public void sendMessage(String message) {
-        sendMessage(message, this.channel);
-    }
-
-    public String getSender() {
-        return sender;
-    }
-
-    public ISteph getReceiver() {
-        return receiver;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getChannel() {
-        return channel;
+        //sendMessage(message, this.message.);
     }
 }

@@ -5,5 +5,5 @@ import java.util.List;
 public interface IMessageHandler {
     public List<IEventMatcher> getEventMatchers();
 
-    public void processMessage(ChatEvent event);
+    public void processEvent(ChatEvent event);
 }

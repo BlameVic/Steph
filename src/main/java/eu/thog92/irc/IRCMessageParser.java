@@ -108,7 +108,7 @@ public class IRCMessageParser {
     }
 
     public static class Prefix {
-        public String name; //Either servenername or nick
+        public String name; //Either server name or nick
         public String user;
         public String host;
 
@@ -124,6 +124,47 @@ public class IRCMessageParser {
                     "name='" + name + '\'' +
                     ", user='" + user + '\'' +
                     ", host='" + host + '\'' +
+                    '}';
+        }
+    }
+
+    public static Privmsg parsePrivmsg(String message) {
+        Message theMessage = parseMessage(message);
+        return parsePrivmsg(theMessage);
+    }
+
+    public static Privmsg parsePrivmsg(Message theMessage) {
+        if (theMessage == null) return null;
+        if (!theMessage.command.equals("PRIVMSG")) return null;
+
+        Prefix prefix = parsePrefix(theMessage.prefix);
+        String target;
+        String message;
+
+        int splitPoint = theMessage.params.indexOf(" ");
+        target = theMessage.params.substring(0, splitPoint);
+        message = theMessage.params.substring(splitPoint + 1);
+
+        return new Privmsg(prefix, target, message);
+    }
+
+    public static class Privmsg {
+        public Prefix prefix;
+        public String target;
+        public String message;
+
+        public Privmsg(Prefix prefix, String target, String message) {
+            this.prefix = prefix;
+            this.target = target;
+            this.message = message;
+        }
+
+        @Override
+        public String toString() {
+            return "Privmsg{" +
+                    "prefix=" + prefix +
+                    ", target='" + target + '\'' +
+                    ", message='" + message + '\'' +
                     '}';
         }
     }

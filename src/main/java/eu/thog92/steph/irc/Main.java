@@ -41,7 +41,7 @@ public class Main {
                 //System.out.println(message.toString());
 
                 if (message.prefix != null) {
-                    IRCMessageParser.Prefix prefix = IRCMessageParser.parsePrefix(message.prefix);
+                    IRCMessageParser.Prefix prefix = message.prefix;
                     //System.out.println(prefix.toString());
 
                     if (message.command.equals("PRIVMSG")) {

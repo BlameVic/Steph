@@ -1,10 +1,7 @@
 package eu.thog92.irc;
 
-/**
- * Created by rx14 on 31/10/14.
- */
 public class IRCMessageParser {
-    public static String getPrefix(String message) {
+    public static Prefix getPrefix(String message) {
         return parseMessage(message).prefix;
     }
 
@@ -34,17 +31,17 @@ public class IRCMessageParser {
         int commandEnd = theRest.indexOf(" ");
         command = theRest.substring(0, commandEnd);
 
-        params = theRest.substring(commandEnd + 1);
+        params = theRest.substring(commandEnd);
 
-        return new Message(prefix, command, params);
+        return new Message(parsePrefix(prefix), command, params);
     }
 
     public static class Message {
-        public String prefix;
+        public Prefix prefix;
         public String command;
         public String params;
 
-        public Message(String prefix, String command, String params) {
+        public Message(Prefix prefix, String command, String params) {
             this.prefix = prefix;
             this.command = command;
             this.params = params;
@@ -128,16 +125,16 @@ public class IRCMessageParser {
         }
     }
 
-    public static Privmsg parsePrivmsg(String message) {
+    public static PrivateMessage parsePrivateMessage(String message) {
         Message theMessage = parseMessage(message);
-        return parsePrivmsg(theMessage);
+        return parsePrivateMessage(theMessage);
     }
 
-    public static Privmsg parsePrivmsg(Message theMessage) {
+    public static PrivateMessage parsePrivateMessage(Message theMessage) {
         if (theMessage == null) return null;
         if (!theMessage.command.equals("PRIVMSG")) return null;
 
-        Prefix prefix = parsePrefix(theMessage.prefix);
+        Prefix prefix = theMessage.prefix;
         String target;
         String message;
 
@@ -145,15 +142,15 @@ public class IRCMessageParser {
         target = theMessage.params.substring(0, splitPoint);
         message = theMessage.params.substring(splitPoint + 1);
 
-        return new Privmsg(prefix, target, message);
+        return new PrivateMessage(prefix, target, message);
     }
 
-    public static class Privmsg {
+    public static class PrivateMessage {
         public Prefix prefix;
         public String target;
         public String message;
 
-        public Privmsg(Prefix prefix, String target, String message) {
+        public PrivateMessage(Prefix prefix, String target, String message) {
             this.prefix = prefix;
             this.target = target;
             this.message = message;
@@ -161,7 +158,7 @@ public class IRCMessageParser {
 
         @Override
         public String toString() {
-            return "Privmsg{" +
+            return "PrivateMessage{" +
                     "prefix=" + prefix +
                     ", target='" + target + '\'' +
                     ", message='" + message + '\'' +

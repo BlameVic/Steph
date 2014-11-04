@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -17,9 +18,8 @@ public class StephController {
     List<ISteph>          stephs;
 
     public StephController(String configFile, ISteph... stephs) {
-        for (ISteph steph : stephs) {
-            this.stephs.add(steph);
-        }
+
+        this.stephs = Arrays.asList(stephs);
 
         Yaml yaml = new Yaml();
         InputStream configFileStream;

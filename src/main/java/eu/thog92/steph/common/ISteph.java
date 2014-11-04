@@ -27,4 +27,6 @@ public interface ISteph {
 
     public void                setConfig(Map<String, String> config) throws InvalidConfigException;
     public Map<String, String> getConfig();
+
+    public void setController(StephController controller);
 }

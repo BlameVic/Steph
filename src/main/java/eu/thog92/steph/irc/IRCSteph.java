@@ -1,6 +1,7 @@
 package eu.thog92.steph.irc;
 
 import eu.thog92.irc.IRCClient;
+import eu.thog92.irc.IRCMessageParser;
 import eu.thog92.steph.common.ChatEvent;
 import eu.thog92.steph.common.ISteph;
 import eu.thog92.steph.common.StephController;
@@ -105,10 +106,8 @@ public class IRCSteph implements ISteph {
         if (client.processPing(line))
             return null;
 
-        String nick = client.getNick(line);
-        String message = client.getMessageBody(line);
-        String channel = null;
+        IRCMessageParser.Message message = IRCMessageParser.parseMessage(line);
 
-        return new ChatEvent(new IRCSteph(), message, channel, nick);
+        return new ChatEvent(this, message, this.controller, null);
     }
 }

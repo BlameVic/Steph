@@ -93,6 +93,7 @@ public class IRCMessageParser {
                 int hostIndex = prefix.indexOf("@");
                 host = prefix.substring(hostIndex + 1);
                 prefix = prefix.substring(0, hostIndex);
+                //Fall through to next case statement
 
             case 1:
                 int userIndex = prefix.indexOf("!");

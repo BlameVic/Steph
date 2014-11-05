@@ -2,12 +2,6 @@ package eu.thog92.steph.irc;
 
 import eu.thog92.irc.IRCClient;
 import eu.thog92.irc.IRCMessageParser;
-import eu.thog92.steph.irc.IRCSteph;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {

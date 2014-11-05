@@ -98,6 +98,8 @@ public class IRCSteph implements ISteph {
             String line = client.readLine();
             if (line != null) {
                 processLine(line);
+            } else {
+                break;
             }
         }
     }

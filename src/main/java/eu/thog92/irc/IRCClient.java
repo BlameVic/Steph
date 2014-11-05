@@ -1,14 +1,11 @@
 package eu.thog92.irc;
 
-import eu.thog92.steph.common.ChatEvent;
-
 import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 import static eu.thog92.irc.IRCMessageParser.*;
-import static eu.thog92.irc.IRCMessageBuilder.*;
 
 public class IRCClient {
     private String hostname;
@@ -22,7 +19,7 @@ public class IRCClient {
     private BufferedReader in;
     private BufferedWriter out;
 
-    List<String> channels = new ArrayList<String>();
+    private List<String> channels = new ArrayList<String>();
 
     /**
      * Initiates an IRCClient

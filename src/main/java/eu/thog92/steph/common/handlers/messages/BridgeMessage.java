@@ -38,7 +38,7 @@ public class BridgeMessage extends AbstractMessageHandler {
 				{
 					ircHandler.disconnect();
 					ircHandler.connect();
-				};
+				}
 			}.start();
 		}
 	}

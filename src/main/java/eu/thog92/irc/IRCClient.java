@@ -1,24 +1,23 @@
 package eu.thog92.irc;
 
-import eu.thog92.steph.common.ChatEvent;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
-import static eu.thog92.irc.IRCMessageParser.*;
-import static eu.thog92.irc.IRCMessageBuilder.*;
-
 public class IRCClient {
     private String hostname;
-    private int    port;
+    private int port;
 
     private String username;
 
     private boolean debug;
 
-    private Socket         sock;
+    private Socket sock;
     private BufferedReader in;
     private BufferedWriter out;
 
@@ -26,6 +25,7 @@ public class IRCClient {
 
     /**
      * Initiates an IRCClient
+     * 
      * @param hostname
      * @param port
      * @param username
@@ -52,8 +52,10 @@ public class IRCClient {
 
     public void connect() throws IOException {
         this.sock = new Socket(hostname, port);
-        this.in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-        this.out = new BufferedWriter(new OutputStreamWriter(sock.getOutputStream()));
+        this.in = new BufferedReader(new InputStreamReader(
+                sock.getInputStream()));
+        this.out = new BufferedWriter(new OutputStreamWriter(
+                sock.getOutputStream()));
     }
 
     public void login() {
@@ -63,17 +65,21 @@ public class IRCClient {
 
     /**
      * Blocks until the next command specified
-     * @param command The command to watch for e.g. PING or 001
-     * @return All of the messages recieved, including the one that triggered the return
+     * 
+     * @param command
+     *            The command to watch for e.g. PING or 001
+     * @return All of the messages recieved, including the one that triggered
+     *         the return
      */
     public List<String> waitForCommand(String command, boolean processping) {
-        List<String> lines = new ArrayList<String>();
+        final List<String> lines = new ArrayList<String>();
         while (true) {
             String line = readLine();
             if (line != null) {
                 lines.add(line);
-                if (processping) processPing(line);
-                if (getCommand(line).equals(command))
+                if (processping)
+                    processPing(line);
+                if (IRCMessageParser.getCommand(line).equals(command))
                     break;
             }
         }
@@ -104,8 +110,9 @@ public class IRCClient {
 
     public String getNick(String line) {
         if (line.startsWith(":")) {
-            int index = line.indexOf("!");
-            if (index == -1) return null; //No ! was found
+            int index = line.indexOf('!');
+            if (index == -1)
+                return null; // No ! was found
 
             String nick = line.substring(1, index);
             debug("NICK: " + nick);
@@ -125,7 +132,9 @@ public class IRCClient {
 
     /**
      * Checks a string to see if it is a PING command and if so replies to it.
-     * @param message A single message with no line endings.
+     * 
+     * @param message
+     *            A single message with no line endings.
      * @return True if the message is a PING, else false.
      */
     public boolean processPing(String message) {
@@ -140,7 +149,8 @@ public class IRCClient {
     /**
      * Writes a line to IRC and then flushes the buffer
      *
-     * @param text A non-terminated string
+     * @param text
+     *            A non-terminated string
      * @return True if no IOException was thrown.
      */
     public boolean writeLine(String text) {
@@ -150,7 +160,8 @@ public class IRCClient {
             debug(">> " + text);
             return true;
         } catch (IOException e) {
-            System.out.println(">!> Failed to write to socket " + hostname + " :");
+            System.out.println(">!> Failed to write to socket " + hostname
+                    + " :");
             e.printStackTrace();
             return false;
         }
@@ -158,7 +169,9 @@ public class IRCClient {
 
     /**
      * Reads a line from IRC
-     * @return The line read, or null if an exception was thrown or the end of the stream was reached.
+     * 
+     * @return The line read, or null if an exception was thrown or the end of
+     *         the stream was reached.
      */
     public String readLine() {
         String line;
@@ -171,14 +184,16 @@ public class IRCClient {
             }
         } catch (IOException e) {
             line = null;
-            System.out.println("<!< Failed to read from socket " + hostname + " :");
+            System.out.println("<!< Failed to read from socket " + hostname
+                    + " :");
             e.printStackTrace();
         }
         return line;
     }
 
     public void debug(String message) {
-        if (debug) System.out.println(message);
+        if (debug)
+            System.out.println(message);
     }
 
     public String getHostname() {

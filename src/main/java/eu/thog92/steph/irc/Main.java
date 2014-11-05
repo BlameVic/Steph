@@ -2,12 +2,6 @@ package eu.thog92.steph.irc;
 
 import eu.thog92.irc.IRCClient;
 import eu.thog92.irc.IRCMessageParser;
-import eu.thog92.steph.irc.IRCSteph;
-
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -22,15 +16,15 @@ public class Main {
         steph.setConfig(config);
         steph.connect();*/
 
-        IRCClient client = new IRCClient("irc.esper.net", "StephanieDola", true);
+        IRCClient client = new IRCClient("irc.esper.net", "Steph", true);
         client.connect();
         client.login();
         client.waitForCommand("001");
 
         //Thread.sleep(1000);
 
-        client.joinChannel("#obsidian");
-        client.sendMessage("Hello Master :3", "#obsidian");
+        client.joinChannel("#Thog");
+        client.sendMessage("Hello Master :3", "#Thog");
 
         System.out.println("Entering Loop!");
         String line;
@@ -46,10 +40,10 @@ public class Main {
 
                     if (message.command.equals("PRIVMSG")) {
                         if (message.params.toLowerCase().contains("hi steph")) {
-                            if (prefix.name.equals("RX14")) {
-                                client.sendMessage("Hello Master :3", "#obsidian");
+                            if (prefix.name.equals("Thog")) {
+                                client.sendMessage("Hello Master :3", "#Thog");
                             } else {
-                                client.sendMessage("Hey", "#obsidian");
+                                client.sendMessage("Hey", "#Thog");
                             }
                         }
                     }

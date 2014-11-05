@@ -22,7 +22,6 @@ public class Steph implements IChatBot {
 
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
 		return "Steph";
 	}
 
@@ -84,7 +83,6 @@ public class Steph implements IChatBot {
 
 	@Override
 	public void onServerUnload() {
-		// TODO Auto-generated method stub
 		this.ircHandler.disconnect();
 	}
 

@@ -93,11 +93,13 @@ public class IRCSteph implements ISteph {
         }
     }
 
-    public String parseLines() {
+    public void parseLines() {
         while (true) {
             String line = client.readLine();
             if (line != null) {
                 processLine(line);
+            } else {
+                break;
             }
         }
     }

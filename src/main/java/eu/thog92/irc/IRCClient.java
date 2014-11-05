@@ -21,7 +21,7 @@ public class IRCClient {
     private BufferedReader in;
     private BufferedWriter out;
 
-    List<String> channels = new ArrayList<String>();
+    private List<String> channels = new ArrayList<String>();
 
     /**
      * Initiates an IRCClient

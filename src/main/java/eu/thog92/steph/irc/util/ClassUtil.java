@@ -13,7 +13,7 @@ public class ClassUtil {
 	private final static String CLASS_SUFFIX = ".class";
 	private final static String BAD_PACKAGE_ERROR = "Unable to get resources from path '%s'. Are you sure the given '%s' package exists?";
 
-	public final static List<Class<?>> find(final String scannedPackage) {
+	public static List<Class<?>> find(final String scannedPackage) {
 		final ClassLoader classLoader = Thread.currentThread()
 				.getContextClassLoader();
 		final String scannedPath = scannedPackage.replace(DOT, SLASH);
@@ -32,7 +32,7 @@ public class ClassUtil {
 		return classes;
 	}
 
-	private final static List<Class<?>> find(final File file,
+	private static List<Class<?>> find(final File file,
 			final String scannedPackage) {
 		final List<Class<?>> classes = new LinkedList<Class<?>>();
 		final String resource = scannedPackage + DOT + file.getName();

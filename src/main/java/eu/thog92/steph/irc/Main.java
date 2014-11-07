@@ -16,15 +16,13 @@ public class Main {
         steph.setConfig(config);
         steph.connect();*/
 
-        IRCClient client = new IRCClient("irc.esper.net", "Steph", true);
+        IRCClient client = new IRCClient("irc.esper.net", "StephanieDola", true);
         client.connect();
         client.login();
         client.waitForCommand("001");
 
-        //Thread.sleep(1000);
-
-        client.joinChannel("#Thog");
-        client.sendMessage("Hello Master :3", "#Thog");
+        client.joinChannel("#obsidian");
+        client.sendMessage("Hello Master :3", "#obsidian");
 
         System.out.println("Entering Loop!");
         String line;
@@ -40,10 +38,10 @@ public class Main {
 
                     if (message.command.equals("PRIVMSG")) {
                         if (message.params.toLowerCase().contains("hi steph")) {
-                            if (prefix.name.equals("Thog")) {
-                                client.sendMessage("Hello Master :3", "#Thog");
+                            if (prefix.name.equals("VicNightfall")) {
+                                client.sendMessage("Hello Master :3", "#obsidian");
                             } else {
-                                client.sendMessage("Hey", "#Thog");
+                                client.sendMessage("Hey", "#obsidian");
                             }
                         }
                     }

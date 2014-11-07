@@ -1,23 +1,19 @@
 package eu.thog92.irc;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
 
 public class IRCClient {
     private String hostname;
-    private int port;
+    private int    port;
 
     private String username;
 
     private boolean debug;
 
-    private Socket sock;
+    private Socket         sock;
     private BufferedReader in;
     private BufferedWriter out;
 
@@ -25,7 +21,7 @@ public class IRCClient {
 
     /**
      * Initiates an IRCClient
-     * 
+     *
      * @param hostname
      * @param port
      * @param username
@@ -65,11 +61,10 @@ public class IRCClient {
 
     /**
      * Blocks until the next command specified
-     * 
-     * @param command
-     *            The command to watch for e.g. PING or 001
+     *
+     * @param command The command to watch for e.g. PING or 001
      * @return All of the messages recieved, including the one that triggered
-     *         the return
+     * the return
      */
     public List<String> waitForCommand(String command, boolean processping) {
         final List<String> lines = new ArrayList<String>();
@@ -132,9 +127,8 @@ public class IRCClient {
 
     /**
      * Checks a string to see if it is a PING command and if so replies to it.
-     * 
-     * @param message
-     *            A single message with no line endings.
+     *
+     * @param message A single message with no line endings.
      * @return True if the message is a PING, else false.
      */
     public boolean processPing(String message) {
@@ -149,8 +143,7 @@ public class IRCClient {
     /**
      * Writes a line to IRC and then flushes the buffer
      *
-     * @param text
-     *            A non-terminated string
+     * @param text A non-terminated string
      * @return True if no IOException was thrown.
      */
     public boolean writeLine(String text) {
@@ -169,9 +162,9 @@ public class IRCClient {
 
     /**
      * Reads a line from IRC
-     * 
+     *
      * @return The line read, or null if an exception was thrown or the end of
-     *         the stream was reached.
+     * the stream was reached.
      */
     public String readLine() {
         String line;

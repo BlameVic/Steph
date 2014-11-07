@@ -4,9 +4,9 @@ import vic.mod.chat.api.bot.IBotHandler;
 
 public abstract class AbstractMessageHandler implements IMessageHandler {
 
-	protected IBotHandler botHandler;
+    protected IBotHandler botHandler;
 
-	public AbstractMessageHandler(IBotHandler botHandler) {
-		this.botHandler = botHandler;
-	}
+    public AbstractMessageHandler(IBotHandler botHandler) {
+        this.botHandler = botHandler;
+    }
 }

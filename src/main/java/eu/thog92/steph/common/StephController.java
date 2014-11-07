@@ -32,10 +32,10 @@ public class StephController {
             configFileStream = null;
         }
 
-        config = (Map)yaml.load(configFileStream);
+        config = (Map) yaml.load(configFileStream);
 
         for (ISteph steph : stephs) {
-            Map<String, String> stephConfig = (Map<String, String>)config.get(steph.getName());
+            Map<String, String> stephConfig = (Map<String, String>) config.get(steph.getName());
 
             System.out.println("Config for: " + steph.getName());
             System.out.println(stephConfig.toString());
@@ -53,6 +53,7 @@ public class StephController {
 
     /**
      * Recuring method that performs polling operations on the active steph
+     *
      * @return Returns true when the bot should exit and disconnect.
      */
     public boolean poll() {
@@ -70,7 +71,10 @@ public class StephController {
 
     public void startPoll() {
         while (poll()) {
-            try { Thread.sleep(50); } catch (InterruptedException e) { }
+            try {
+                Thread.sleep(50);
+            } catch (InterruptedException e) {
+            }
         }
         System.out.println("Shutting down...");
     }

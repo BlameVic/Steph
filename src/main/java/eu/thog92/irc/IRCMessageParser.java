@@ -157,6 +157,16 @@ public class IRCMessageParser {
             this.message = message;
         }
 
+        public void reply(String message, IRCClient client) {
+            String target;
+            if (this.target.startsWith("#")) {
+                target = this.target;
+            } else {
+                target = this.prefix.user;
+            }
+            new IRCMessageSender(client).privateMessage(message, target);
+        }
+
         @Override
         public String toString() {
             return "PrivateMessage{" +

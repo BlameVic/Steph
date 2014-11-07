@@ -1,4 +1,4 @@
-package eu.thog92.steph.vchat;
+/*package eu.thog92.steph.vchat;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,4 +92,4 @@ public class Steph implements IChatBot {
 		
 	}
 
-}
+}*/

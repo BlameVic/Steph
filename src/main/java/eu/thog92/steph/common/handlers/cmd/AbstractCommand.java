@@ -1,4 +1,4 @@
-package eu.thog92.steph.common.handlers.cmd;
+/*package eu.thog92.steph.common.handlers.cmd;
 
 import eu.thog92.steph.irc.Client;
 
@@ -11,3 +11,4 @@ public abstract class AbstractCommand implements ICommand {
 		this.irc = irc;
 	}
 }
+*/

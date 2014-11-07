@@ -1,4 +1,4 @@
-package eu.thog92.steph.common.handlers.messages;
+/*package eu.thog92.steph.common.handlers.messages;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -156,3 +156,4 @@ public class MojangStatusMessage extends AbstractMessageHandler {
     }
 
 }
+*/

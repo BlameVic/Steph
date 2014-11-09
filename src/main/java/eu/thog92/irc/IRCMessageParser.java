@@ -31,7 +31,7 @@ public class IRCMessageParser {
         int commandEnd = theRest.indexOf(" ");
         command = theRest.substring(0, commandEnd);
 
-        params = theRest.substring(commandEnd);
+        params = theRest.substring(commandEnd + 1);
 
         return new Message(parsePrefix(prefix), command, params);
     }

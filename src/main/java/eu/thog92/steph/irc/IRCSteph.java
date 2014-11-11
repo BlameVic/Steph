@@ -63,6 +63,7 @@ public class IRCSteph implements ISteph {
         String  hostname = config.get("hostname");
         int     port     = Integer.parseInt(config.get("port"));
         String  username = config.get("username");
+        String  realname = config.get("realname");
         boolean debug    = Boolean.parseBoolean(config.get("debug"));
 
         if (hostname == null)
@@ -71,9 +72,12 @@ public class IRCSteph implements ISteph {
         if (username == null)
             throw new InvalidConfigException("Parameter username not set!");
 
+        if (realname == null)
+            throw new InvalidConfigException("Parameter realname not set!");
+
         this.config = config;
 
-        this.client = new IRCClient(hostname, port, username, debug);
+        this.client = new IRCClient(hostname, port, username, realname, debug);
 
     }
 

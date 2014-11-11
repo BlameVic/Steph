@@ -15,6 +15,7 @@ public class IRCClient {
     public boolean debug;
 
     public List<String> channels = new ArrayList<String>();
+    public IRCMessageSender sender = new IRCMessageSender(this);
     private Socket         sock;
     private BufferedReader in;
     private BufferedWriter out;
@@ -57,8 +58,26 @@ public class IRCClient {
     }
 
     public void login() {
-        writeLine("NICK " + username);
-        writeLine("USER " + username + " 0 * :Thog & RX14's IRCClient!");
+        sender.command("NICK", username);
+        sender.command("USER", username, "0", "*", ":" + realname);
+    }
+
+    public boolean joinChannel(String channel) {
+        if (sender.join(channel)) {
+            channels.add(channel);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean leaveChannel(String channel) {
+        sender.command("PART", channel);
+        return channels.remove(channel);
+    }
+
+    public boolean sendMessage(String message, String target) {
+        return sender.command("PRIVMSG", target, ":" + message);
     }
 
     /**
@@ -85,24 +104,6 @@ public class IRCClient {
 
     public List<String> waitForCommand(String command) {
         return waitForCommand(command, true);
-    }
-
-    public boolean joinChannel(String channel) {
-        if (writeLine("JOIN " + channel)) {
-            channels.add(channel);
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public boolean leaveChannel(String channel) {
-        writeLine("PART " + channel);
-        return channels.remove(channel);
-    }
-
-    public boolean sendMessage(String message, String channel) {
-        return writeLine("PRIVMSG " + channel + " :" + message);
     }
 
     public String getNick(String line) {

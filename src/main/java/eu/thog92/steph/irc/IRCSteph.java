@@ -16,7 +16,7 @@ public class IRCSteph implements ISteph {
     StephController controller = null;
 
     public void sendMessage(String message, String channel) {
-        //
+        client.sendMessage(message, channel);
     }
 
     public void sendPrivateMessage(String message, String user) {

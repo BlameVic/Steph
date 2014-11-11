@@ -18,7 +18,7 @@ public class Main {
 
         String channel = "#Thog";
 
-        IRCClient client = new IRCClient("irc.esper.net", "StephanieDola", true);
+        IRCClient client = new IRCClient("anarchy.esper.net", "StephanieDola", "Stephanie Dola", true);
         client.connect();
         client.login();
         client.waitForCommand("001");
@@ -28,6 +28,7 @@ public class Main {
 
         System.out.println("Entering Loop!");
         String line;
+        IRCMessageParser.PrivateMessage privmsg;
         while (true) {
             if ((line = client.readLine()) != null) {
                 client.processPing(line);
@@ -36,12 +37,14 @@ public class Main {
                 if (message.prefix != null) {
                     IRCMessageParser.Prefix prefix = message.prefix;
 
-                    if (message.command.equals("PRIVMSG")) {
-                        if (message.params.toLowerCase().contains("hi steph")) {
-                            if (prefix.name.equals("VicNightfall")) {
-                                client.sendMessage("Hello Master :3", channel);
+                    if ((privmsg = IRCMessageParser.parsePrivateMessage(message)) != null) {
+                        if (privmsg.message.toLowerCase().equals("hi steph")) {
+                            if (privmsg.prefix.name.toLowerCase().equals("VicNightfall") ||
+                                privmsg.prefix.name.toLowerCase().equals("Vic")
+                            ) {
+                                privmsg.reply("Hello Master :3", client);
                             } else {
-                                client.sendMessage("Hey", channel);
+                                privmsg.reply("Hey", client);
                             }
                         }
                     }

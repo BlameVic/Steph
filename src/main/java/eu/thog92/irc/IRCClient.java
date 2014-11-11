@@ -10,6 +10,7 @@ public class IRCClient {
     public int    port;
 
     public String username;
+    public String realname;
 
     public boolean debug;
 
@@ -27,23 +28,24 @@ public class IRCClient {
      * @param username
      * @param debug
      */
-    public IRCClient(String hostname, int port, String username, boolean debug) {
+    public IRCClient(String hostname, int port, String username, String realname, boolean debug) {
         this.hostname = hostname;
         this.port = port;
         this.username = username;
         this.debug = debug;
+        this.realname = realname;
     }
 
-    public IRCClient(String hostname, int port, String username) {
-        this(hostname, port, username, false);
+    public IRCClient(String hostname, int port, String username, String realname) {
+        this(hostname, port, username, realname, false);
     }
 
-    public IRCClient(String hostname, String username, boolean debug) {
-        this(hostname, 6667, username, debug);
+    public IRCClient(String hostname, String username, String realname, boolean debug) {
+        this(hostname, 6667, username, realname, debug);
     }
 
-    public IRCClient(String hostname, String username) {
-        this(hostname, username, false);
+    public IRCClient(String hostname, String username, String realname) {
+        this(hostname, username, realname, false);
     }
 
     public void connect() throws IOException {

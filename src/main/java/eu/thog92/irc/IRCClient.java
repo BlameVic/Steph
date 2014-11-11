@@ -106,28 +106,6 @@ public class IRCClient {
         return waitForCommand(command, true);
     }
 
-    public String getNick(String line) {
-        if (line.startsWith(":")) {
-            int index = line.indexOf('!');
-            if (index == -1)
-                return null; // No ! was found
-
-            String nick = line.substring(1, index);
-            debug("NICK: " + nick);
-            return nick;
-        } else {
-            return null;
-        }
-    }
-
-    public String getMessageBody(String line) {
-        return null;
-    }
-
-    public String getChannel(String line) {
-        return null;
-    }
-
     /**
      * Checks a string to see if it is a PING command and if so replies to it.
      *

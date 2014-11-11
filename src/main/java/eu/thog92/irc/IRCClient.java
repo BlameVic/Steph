@@ -2,7 +2,12 @@ package eu.thog92.irc;
 
 import java.io.*;
 import java.net.Socket;
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class IRCClient {
@@ -15,11 +20,17 @@ public class IRCClient {
     public boolean debug;
 
     public List<String> channels = new ArrayList<String>();
+
     public IRCMessageSender sender = new IRCMessageSender(this);
+
     private Socket         sock;
     private BufferedReader in;
     private BufferedWriter out;
 
+    private Date lastDebug;
+
+    private NumberFormat diffFormat = new DecimalFormat("#00.00");
+    private DateFormat   timeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ssZ");
 
     /**
      * Initiates an IRCClient
@@ -131,7 +142,7 @@ public class IRCClient {
         try {
             out.write(text + "\r\n");
             out.flush();
-            debug(">> " + text);
+            debug(">>", text);
             return true;
         } catch (IOException e) {
             System.out.println(">!> Failed to write to socket " + hostname
@@ -152,7 +163,7 @@ public class IRCClient {
         try {
             if (in.ready()) {
                 line = in.readLine();
-                debug("<< " + line);
+                debug("<<",line);
             } else {
                 line = null;
             }
@@ -165,10 +176,17 @@ public class IRCClient {
         return line;
     }
 
-    public void debug(String message) {
-        if (debug)
-            System.out.println(message);
-    }
-
+    public void debug(String prefix, String message) {
+        if (debug) {
+            double diff;
+            Date currentDebug = new Date();
+            if (lastDebug != null) {
+                diff = ((double)(currentDebug.getTime() - lastDebug.getTime()) / 1000);
+            } else {
+                diff = 0;
+            }
+            lastDebug = currentDebug;
+            System.out.println(timeFormat.format(currentDebug) + " +" + diffFormat.format(diff) + " " + prefix + " " + message);
+        }
     }
 }

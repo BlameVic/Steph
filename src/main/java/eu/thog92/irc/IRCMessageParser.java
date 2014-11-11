@@ -139,8 +139,8 @@ public class IRCMessageParser {
         String target;
         String message;
 
-        int splitPoint = theMessage.params.indexOf(" ");
-        target = theMessage.params.substring(0, splitPoint);
+        int splitPoint = theMessage.params.indexOf(":");
+        target = theMessage.params.substring(0, splitPoint).trim();
         message = theMessage.params.substring(splitPoint + 1);
 
         return new PrivateMessage(prefix, target, message);

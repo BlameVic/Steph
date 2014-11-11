@@ -192,23 +192,5 @@ public class IRCClient {
             System.out.println(message);
     }
 
-    public String getHostname() {
-        return hostname;
-    }
-
-    public int getPort() {
-        return port;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public boolean isDebug() {
-        return debug;
-    }
-
-    public List<String> getChannels() {
-        return channels;
     }
 }

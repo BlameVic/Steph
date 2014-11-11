@@ -6,18 +6,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class IRCClient {
-    private String hostname;
-    private int    port;
+    public String hostname;
+    public int    port;
 
-    private String username;
+    public String username;
 
-    private boolean debug;
+    public boolean debug;
 
+    public List<String> channels = new ArrayList<String>();
     private Socket         sock;
     private BufferedReader in;
     private BufferedWriter out;
 
-    private List<String> channels = new ArrayList<String>();
 
     /**
      * Initiates an IRCClient

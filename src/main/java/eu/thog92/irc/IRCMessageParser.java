@@ -159,12 +159,25 @@ public class IRCMessageParser {
 
         public void reply(String message, IRCClient client) {
             String target;
-            if (this.target.startsWith("#")) {
+            if (targetIsAChannel()) {
                 target = this.target;
             } else {
                 target = this.prefix.user;
             }
             new IRCMessageSender(client).privateMessage(message, target);
+        }
+
+        public boolean targetIsAChannel() {
+            char first = this.target.charAt(0);
+            if      (first == '#') return true;
+            else if (first == '&') return true;
+            else if (first == '+') return true;
+            else if (first == '!') return true;
+            else return false;
+        }
+
+        public boolean isTargetSelf(IRCClient client) {
+            return (client.username.equals(this.target));
         }
 
         @Override

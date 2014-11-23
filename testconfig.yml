@@ -1,0 +1,7 @@
+---
+IRCSteph:
+  hostname: anarchy.esper.net
+  port: 6667
+  username: StephanieDola
+  realname: Stephanie Dola
+  debug: true

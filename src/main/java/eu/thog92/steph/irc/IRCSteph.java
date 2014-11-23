@@ -7,52 +7,68 @@ import eu.thog92.steph.common.ISteph;
 import eu.thog92.steph.common.StephController;
 import eu.thog92.steph.common.exceptions.InvalidConfigException;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class IRCSteph implements ISteph {
-    IRCClient           client;
-    StephController controller = null;
+    StephController     controller = null;
     Map<String, Object> config;
 
+    IRCClient client;
+    String    mainChannel;
+
+    List<ChatEvent> eventQueue = new ArrayList<>();
+
     public void sendMessage(String message, String channel) {
-        client.sendMessage(message, channel);
+        client.sender.privateMessage(message, channel);
     }
 
     public void sendPrivateMessage(String message, String user) {
-        //
+        client.sender.privateMessage(message, user);
     }
 
     public ChatEvent getCurrentEvent() {
-        return null;
+        if (eventQueue.size() == 0) return null;
+        return eventQueue.get(0);
     }
 
     public boolean moveNextEvent() {
-        return false;
+        if (eventQueue.size() == 0) parseLines();
+        else eventQueue.remove(0);
+
+        return eventQueue.size() > 0;
     }
 
     public List<String> getChannels() {
-        return null;
+        return client.channels;
     }
 
     public void joinChannel(String channel) {
-        //
+        client.joinChannel(channel);
     }
 
     public void leaveChannel(String channel) {
-        //
+        client.leaveChannel(channel);
     }
 
     public void setMainChannel(String channel) {
-        //
+        mainChannel = channel;
     }
 
     public String getMainChannel() {
-        return null;
+        return mainChannel;
     }
 
-    public void connect() {
-        //
+    public boolean connect() {
+        try {
+            client.connect();
+            client.login();
+            return true;
+        } catch (IOException e) {
+            return false;
+        }
     }
 
     public void disconnect() {
@@ -81,10 +97,6 @@ public class IRCSteph implements ISteph {
 
     }
 
-    public String getName() {
-        return "IRCSteph";
-    }
-
     public Map<String, Object> getConfig() {
         return config;
     }
@@ -97,11 +109,16 @@ public class IRCSteph implements ISteph {
         }
     }
 
+    public String getName() {
+        return "IRCSteph";
+    }
+
     public void parseLines() {
         while (true) {
             String line = client.readLine();
             if (line != null) {
-                processLine(line);
+                ChatEvent event = processLine(line);
+                if (event != null) eventQueue.add(event);
             } else {
                 break;
             }

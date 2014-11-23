@@ -9,7 +9,7 @@ mainClassName = "eu.thog92.steph.irc.Main"
 repositories {
     mavenCentral()
     maven {
-        url "http://dl.bintray.com/rx14/ModMaven"
+        url "http://mvn.rx14.co.uk/repo/"
     }
 }
 
@@ -19,7 +19,7 @@ compileJava {
 }
 
 dependencies {
-    compile "com.google.code.gson:gson:2.3"
-    compile "org.yaml:snakeyaml:1.14"
-    compile "vic.mod.chat:vChat:0.2r15"
+    compile group: "com.google.code.gson", name: "gson"     , version: "2.3"
+    compile group: "org.yaml"            , name: "snakeyaml", version: "1.14"
+    compile group: "vic.mod.chat"        , name: "vChat"    , version: "0.2r15.9"
 }

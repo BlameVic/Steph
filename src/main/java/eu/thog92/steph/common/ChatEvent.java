@@ -22,4 +22,14 @@ public class ChatEvent {
     public void sendMessage(String message) {
         //sendMessage(message, this.message.);
     }
+
+    @Override
+    public String toString() {
+        return "ChatEvent{" +
+                "receiver=" + receiver +
+                ", message=" + message +
+                ", controller=" + controller +
+                ", matcher=" + matcher +
+                '}';
+    }
 }

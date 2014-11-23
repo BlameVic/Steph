@@ -20,13 +20,13 @@ public interface ISteph {
     public void   setMainChannel(String channel);
     public String getMainChannel();
 
-    public void connect();
+    public boolean connect();
     public void disconnect();
 
     public String getName();
 
-    public void                setConfig(Map<String, String> config) throws InvalidConfigException;
-    public Map<String, String> getConfig();
+    public void setConfig(Map<String, Object> config) throws InvalidConfigException;
+    public Map<String, Object> getConfig();
 
     public void setController(StephController controller);
 }

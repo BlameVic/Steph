@@ -35,7 +35,7 @@ public class StephController {
         config = (Map) yaml.load(configFileStream);
 
         for (ISteph steph : stephs) {
-            Map<String, String> stephConfig = (Map<String, String>) config.get(steph.getName());
+            Map<String, Object> stephConfig = (Map<String, Object>) config.get(steph.getName());
 
             System.out.println("Config for: " + steph.getName());
             System.out.println(stephConfig.toString());

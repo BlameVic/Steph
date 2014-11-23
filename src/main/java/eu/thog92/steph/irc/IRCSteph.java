@@ -12,8 +12,8 @@ import java.util.Map;
 
 public class IRCSteph implements ISteph {
     IRCClient           client;
-    Map<String, String> config;
     StephController controller = null;
+    Map<String, Object> config;
 
     public void sendMessage(String message, String channel) {
         client.sendMessage(message, channel);
@@ -59,12 +59,12 @@ public class IRCSteph implements ISteph {
         //
     }
 
-    public void setConfig(Map<String, String> config) throws InvalidConfigException {
-        String  hostname = config.get("hostname");
-        int     port     = Integer.parseInt(config.get("port"));
-        String  username = config.get("username");
-        String  realname = config.get("realname");
-        boolean debug    = Boolean.parseBoolean(config.get("debug"));
+    public void setConfig(Map<String, Object> config) throws InvalidConfigException {
+        String  hostname = config.get("hostname").toString();
+        int     port     = Integer.parseInt(config.get("port").toString());
+        String  username = config.get("username").toString();
+        String  realname = config.get("realname").toString();
+        boolean debug    = Boolean.parseBoolean(config.get("debug").toString());
 
         if (hostname == null)
             throw new InvalidConfigException("Parameter hostname not set!");
@@ -85,8 +85,8 @@ public class IRCSteph implements ISteph {
         return "IRCSteph";
     }
 
-    public Map<String, String> getConfig() {
-        return null;
+    public Map<String, Object> getConfig() {
+        return config;
     }
 
     public void setController(StephController controller) {

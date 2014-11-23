@@ -37,8 +37,10 @@ public class StephController {
         for (ISteph steph : stephs) {
             Map<String, Object> stephConfig = (Map<String, Object>) config.get(steph.getName());
 
-            System.out.println("Config for: " + steph.getName());
+            System.out.print("Config for: " + steph.getName() + ": ");
             System.out.println(stephConfig.toString());
+
+            steph.setController(this);
 
             try {
                 steph.setConfig(stephConfig);
@@ -61,6 +63,7 @@ public class StephController {
         for (ISteph steph : stephs) {
             while (steph.moveNextEvent()) {
                 ChatEvent event = steph.getCurrentEvent();
+                System.out.println(event.toString());
             }
         }
 
@@ -70,7 +73,7 @@ public class StephController {
     }
 
     public void startPoll() {
-        while (poll()) {
+        while (!poll()) {
             try {
                 Thread.sleep(50);
             } catch (InterruptedException e) {

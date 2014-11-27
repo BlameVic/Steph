@@ -7,8 +7,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 public class StephController
 {
@@ -22,29 +24,7 @@ public class StephController
 
         loadConfig(configFileName);
 
-        Object StephConfig = config.get("stephs");
-        System.out.println(StephConfig.toString());
-
-        for (ISteph steph : stephs)
-        {
-            Map<String, Object> stephConfig = (Map<String, Object>) config.get(steph.getName());
-
-            System.out.print("Config for: " + steph.getName() + ": ");
-            System.out.println(stephConfig.toString());
-
-            steph.setController(this);
-
-            try
-            {
-                steph.setConfig(stephConfig);
-            } catch (InvalidConfigException e)
-            {
-                System.out.println("Invalid config in \"" + configFileName + "\":");
-                e.printStackTrace();
-                System.exit(2);
-            }
-            steph.connect();
-        }
+        loadStephs();
     }
 
     /**
@@ -99,5 +79,57 @@ public class StephController
         }
 
         this.config = (Map) yaml.load(configFileStream);
+    }
+
+    private void loadStephs()
+    {
+        Map<String, Map<String, Object>> stephConfig = (Map) config.get("stephs");
+
+        for (Entry<String, Map<String, Object>> steph : stephConfig.entrySet())
+        {
+            String className = steph.getKey();
+            try
+            {
+                Class stephClass = Class.forName(className);
+                //If stephClass implements ISteph
+                if (Arrays.asList(stephClass.getInterfaces()).contains(ISteph.class))
+                {
+                    try
+                    {
+                        ISteph stephInstance = (ISteph) stephClass.newInstance();
+
+                        setupSteph(stephInstance, steph.getValue());
+
+                        this.stephs.add(stephInstance);
+                    } catch (Exception e)
+                    {
+                        System.err.println("Error initialising " + className + ":");
+                        e.printStackTrace();
+                    }
+                }
+            } catch (ClassNotFoundException ex)
+            {
+                System.out.println("Class not found:" + className);
+            }
+        }
+    }
+
+    private void setupSteph(ISteph steph, Map<String, Object> config)
+    {
+        System.out.print("Config for: " + steph.getName() + ": ");
+        System.out.println(config.toString());
+
+        steph.setController(this);
+
+        try
+        {
+            steph.setConfig(config);
+        } catch (InvalidConfigException e)
+        {
+            System.out.println("Invalid config for " + steph.getName() + ":");
+            e.printStackTrace();
+            System.exit(2);
+        }
+        steph.connect();
     }
 }

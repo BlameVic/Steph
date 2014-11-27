@@ -5,7 +5,8 @@ import com.github.blamevic.steph.common.exceptions.InvalidConfigException;
 import java.util.List;
 import java.util.Map;
 
-public interface ISteph {
+public interface ISteph
+{
     public void sendMessage(String message, String channel);
     public void sendPrivateMessage(String message, String user);
 

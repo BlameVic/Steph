@@ -8,14 +8,17 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HiMessage extends AbstractMessageHandler {
+public class HiMessage extends AbstractMessageHandler
+{
 
-    public HiMessage(IBotHandler botHandler) {
+    public HiMessage(IBotHandler botHandler)
+    {
         super(botHandler);
     }
 
     @Override
-    public List<String> getMessageNames() {
+    public List<String> getMessageNames()
+    {
         ArrayList<String> temp = new ArrayList<String>();
         Collections.addAll(temp, new String[]{"hi", "hey"});
         return temp;
@@ -23,7 +26,8 @@ public class HiMessage extends AbstractMessageHandler {
 
     @Override
     public void processMessage(String message, String match, IChatEntity sender,
-                               IChannelBase channel) {
+                               IChannelBase channel)
+    {
 
         String name = "Master";
         if (sender.getNickname() == null || (!sender.isOperator())) name = sender.getUsername();

@@ -12,70 +12,85 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class IRCSteph implements ISteph {
-    StephController     controller = null;
+public class IRCSteph implements ISteph
+{
+    StephController controller = null;
     Map<String, Object> config;
 
     IRCClient client;
-    String    mainChannel;
+    String mainChannel;
 
     List<ChatEvent> eventQueue = new ArrayList<>();
 
-    public void sendMessage(String message, String channel) {
+    public void sendMessage(String message, String channel)
+    {
         client.sender.privateMessage(message, channel);
     }
 
-    public void sendPrivateMessage(String message, String user) {
+    public void sendPrivateMessage(String message, String user)
+    {
         client.sender.privateMessage(message, user);
     }
 
-    public ChatEvent getCurrentEvent() {
+    public ChatEvent getCurrentEvent()
+    {
         if (eventQueue.size() == 0) return null;
         return eventQueue.get(0);
     }
 
-    public boolean moveNextEvent() {
+    public boolean moveNextEvent()
+    {
         if (eventQueue.size() == 0) parseLines();
         else eventQueue.remove(0);
 
         return eventQueue.size() > 0;
     }
 
-    public List<String> getChannels() {
+    public List<String> getChannels()
+    {
         return client.channels;
     }
 
-    public void joinChannel(String channel) {
+    public void joinChannel(String channel)
+    {
         client.joinChannel(channel);
     }
 
-    public void leaveChannel(String channel) {
+    public void leaveChannel(String channel)
+    {
         client.leaveChannel(channel);
     }
 
-    public void setMainChannel(String channel) {
+    public void setMainChannel(String channel)
+    {
         mainChannel = channel;
     }
 
-    public String getMainChannel() {
+    public String getMainChannel()
+    {
         return mainChannel;
     }
 
-    public boolean connect() {
-        try {
+    public boolean connect()
+    {
+        try
+        {
             client.connect();
             client.login();
             return true;
-        } catch (IOException e) {
+        } catch (IOException e)
+        {
             return false;
         }
     }
 
-    public void disconnect() {
+    public void disconnect()
+    {
         //
     }
 
-    public void setConfig(Map<String, Object> config) throws InvalidConfigException {
+    public void setConfig(Map<String, Object> config) throws InvalidConfigException
+    {
         String  hostname = config.get("hostname").toString();
         int     port     = Integer.parseInt(config.get("port").toString());
         String  username = config.get("username").toString();
@@ -97,35 +112,45 @@ public class IRCSteph implements ISteph {
 
     }
 
-    public Map<String, Object> getConfig() {
+    public Map<String, Object> getConfig()
+    {
         return config;
     }
 
-    public void setController(StephController controller) {
-        if (this.controller == null) {
+    public void setController(StephController controller)
+    {
+        if (this.controller == null)
+        {
             this.controller = controller;
-        } else {
+        } else
+        {
             throw new IllegalStateException("This Steph allready has a set controller");
         }
     }
 
-    public String getName() {
+    public String getName()
+    {
         return "IRCSteph";
     }
 
-    public void parseLines() {
-        while (true) {
+    public void parseLines()
+    {
+        while (true)
+        {
             String line = client.readLine();
-            if (line != null) {
+            if (line != null)
+            {
                 ChatEvent event = processLine(line);
                 if (event != null) eventQueue.add(event);
-            } else {
+            } else
+            {
                 break;
             }
         }
     }
 
-    public ChatEvent processLine(String line) {
+    public ChatEvent processLine(String line)
+    {
         if (client.processPing(line))
             return null;
 

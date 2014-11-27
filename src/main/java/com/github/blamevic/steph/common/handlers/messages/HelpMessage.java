@@ -8,15 +8,18 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class HelpMessage extends AbstractMessageHandler {
+public class HelpMessage extends AbstractMessageHandler
+{
 
-    public HelpMessage(IBotHandler botHandler) {
+    public HelpMessage(IBotHandler botHandler)
+    {
         super(botHandler);
         // TODO Auto-generated constructor stub
     }
 
     @Override
-    public List<String> getMessageNames() {
+    public List<String> getMessageNames()
+    {
         // TODO Auto-generated method stub
         ArrayList<String> temp = new ArrayList<String>();
         Collections.addAll(temp, new String[]{"help"});
@@ -25,7 +28,8 @@ public class HelpMessage extends AbstractMessageHandler {
 
     @Override
     public void processMessage(String message, String match, IChatEntity sender,
-                               IChannelBase channel) {
+                               IChannelBase channel)
+    {
         botHandler.sendGlobalMessage("Help ? Not yet sorry");
     }
 

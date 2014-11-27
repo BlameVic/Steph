@@ -1,6 +1,7 @@
 package com.github.blamevic.steph.common.handlers.cmd;
 
-public interface ICommand {
+public interface ICommand
+{
 
     public String getCommandName();
 

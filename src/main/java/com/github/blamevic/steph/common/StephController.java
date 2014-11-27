@@ -10,20 +10,23 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
 
-public class StephController {
+public class StephController
+{
     Map config;
 
     List<IMessageHandler> handlers;
-    List<ISteph>          stephs;
+    List<ISteph> stephs;
 
-    public StephController(String configFileName) {
+    public StephController(String configFileName)
+    {
 
         loadConfig(configFileName);
 
         Object StephConfig = config.get("stephs");
         System.out.println(StephConfig.toString());
 
-        for (ISteph steph : stephs) {
+        for (ISteph steph : stephs)
+        {
             Map<String, Object> stephConfig = (Map<String, Object>) config.get(steph.getName());
 
             System.out.print("Config for: " + steph.getName() + ": ");
@@ -31,9 +34,11 @@ public class StephController {
 
             steph.setController(this);
 
-            try {
+            try
+            {
                 steph.setConfig(stephConfig);
-            } catch (InvalidConfigException e) {
+            } catch (InvalidConfigException e)
+            {
                 System.out.println("Invalid config in \"" + configFileName + "\":");
                 e.printStackTrace();
                 System.exit(2);
@@ -47,10 +52,13 @@ public class StephController {
      *
      * @return Returns true when the bot should exit and disconnect.
      */
-    public boolean poll() {
+    public boolean poll()
+    {
         boolean shouldStop = false;
-        for (ISteph steph : stephs) {
-            while (steph.moveNextEvent()) {
+        for (ISteph steph : stephs)
+        {
+            while (steph.moveNextEvent())
+            {
                 ChatEvent event = steph.getCurrentEvent();
                 System.out.println(event.toString());
             }
@@ -61,22 +69,30 @@ public class StephController {
         return shouldStop;
     }
 
-    public void startPoll() {
-        while (!poll()) {
-            try {
+    public void startPoll()
+    {
+        while (!poll())
+        {
+            try
+            {
                 Thread.sleep(50);
-            } catch (InterruptedException e) { }
+            } catch (InterruptedException e)
+            {
+            }
         }
         System.out.println("Shutting down...");
     }
 
-    private void loadConfig(String filename) {
+    private void loadConfig(String filename)
+    {
         Yaml yaml = new Yaml();
         InputStream configFileStream;
 
-        try {
+        try
+        {
             configFileStream = new FileInputStream(new File(filename));
-        } catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e)
+        {
             System.out.println("Config file not found: " + filename);
             System.exit(1);
             configFileStream = null;

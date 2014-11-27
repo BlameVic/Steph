@@ -5,7 +5,8 @@ import vic.mod.chat.api.bot.IChatEntity;
 
 import java.util.List;
 
-public interface IMessageHandler {
+public interface IMessageHandler
+{
 
     public List<String> getMessageNames();
 

@@ -1,14 +1,14 @@
-/*package eu.thog92.steph.vchat;
+/*package com.github.blamevic.steph.vchat;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import eu.thog92.steph.common.handlers.messages.BridgeMessage;
-import eu.thog92.steph.common.handlers.messages.HelpMessage;
-import eu.thog92.steph.common.handlers.messages.HiMessage;
-import eu.thog92.steph.common.handlers.messages.IMessageHandler;
-import eu.thog92.steph.common.handlers.messages.MojangStatusMessage;
-import eu.thog92.steph.common.handlers.messages.ToIRCMessage;
+import com.github.blamevic.steph.common.handlers.messages.BridgeMessage;
+import com.github.blamevic.steph.common.handlers.messages.HelpMessage;
+import com.github.blamevic.steph.common.handlers.messages.HiMessage;
+import com.github.blamevic.steph.common.handlers.messages.IMessageHandler;
+import com.github.blamevic.steph.common.handlers.messages.MojangStatusMessage;
+import com.github.blamevic.steph.common.handlers.messages.ToIRCMessage;
 import vic.mod.chat.api.bot.IBotHandler;
 import vic.mod.chat.api.bot.IChannelBase;
 import vic.mod.chat.api.bot.IChatBot;

@@ -1,6 +1,6 @@
-/*package eu.thog92.steph.common.handlers.cmd;
+/*package com.github.blamevic.steph.common.handlers.cmd;
 
-import eu.thog92.steph.irc.Client;
+import com.github.blamevic.steph.irc.Client;
 
 
 

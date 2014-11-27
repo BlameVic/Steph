@@ -1,11 +1,11 @@
-package eu.thog92.steph.irc;
+package com.github.blamevic.steph.irc;
 
-import eu.thog92.irc.IRCClient;
-import eu.thog92.irc.IRCMessageParser;
-import eu.thog92.steph.common.ChatEvent;
-import eu.thog92.steph.common.ISteph;
-import eu.thog92.steph.common.StephController;
-import eu.thog92.steph.common.exceptions.InvalidConfigException;
+import com.github.blamevic.irc.IRCClient;
+import com.github.blamevic.irc.IRCMessageParser;
+import com.github.blamevic.steph.common.ChatEvent;
+import com.github.blamevic.steph.common.ISteph;
+import com.github.blamevic.steph.common.StephController;
+import com.github.blamevic.steph.common.exceptions.InvalidConfigException;
 
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-/*package eu.thog92.steph.common.handlers.messages;
+/*package com.github.blamevic.steph.common.handlers.messages;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,7 +13,7 @@ import vic.mod.chat.api.bot.IChatEntity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-import eu.thog92.steph.irc.util.InputStreamUtil;
+import com.github.blamevic.steph.irc.util.InputStreamUtil;
 
 public class MojangStatusMessage extends AbstractMessageHandler {
 

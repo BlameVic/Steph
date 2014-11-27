@@ -1,4 +1,4 @@
-package eu.thog92.steph.common.exceptions;
+package com.github.blamevic.steph.common.exceptions;
 
 public class InvalidConfigException extends Exception {
 

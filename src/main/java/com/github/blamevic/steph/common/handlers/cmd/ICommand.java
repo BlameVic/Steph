@@ -1,4 +1,4 @@
-package eu.thog92.steph.common.handlers.cmd;
+package com.github.blamevic.steph.common.handlers.cmd;
 
 public interface ICommand {
 

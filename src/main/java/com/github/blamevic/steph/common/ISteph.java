@@ -1,6 +1,6 @@
-package eu.thog92.steph.common;
+package com.github.blamevic.steph.common;
 
-import eu.thog92.steph.common.exceptions.InvalidConfigException;
+import com.github.blamevic.steph.common.exceptions.InvalidConfigException;
 
 import java.util.List;
 import java.util.Map;

@@ -1,9 +1,9 @@
-package eu.thog92.steph.common;
+package com.github.blamevic.steph.common;
 
-import eu.thog92.irc.IRCMessageParser;
+import com.github.blamevic.irc.IRCMessageParser;
 
 public class ChatEvent {
-    ISteph                   receiver;
+    com.github.blamevic.steph.common.ISteph receiver;
     IRCMessageParser.Message message;
     StephController          controller;
     IEventMatcher            matcher;

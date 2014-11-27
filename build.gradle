@@ -4,7 +4,7 @@ apply plugin: "application"
 apply plugin: "idea"
 apply plugin: "eclipse"
 
-mainClassName = "eu.thog92.steph.irc.Main"
+mainClassName = "com.github.blamevic.steph.irc.Main"
 
 repositories {
     mavenCentral()

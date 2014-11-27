@@ -1,13 +1,12 @@
-package eu.thog92.steph.common;
+package com.github.blamevic.steph.common;
 
-import eu.thog92.steph.common.exceptions.InvalidConfigException;
+import com.github.blamevic.steph.common.exceptions.InvalidConfigException;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -17,22 +16,12 @@ public class StephController {
     List<IMessageHandler> handlers;
     List<ISteph>          stephs;
 
-    public StephController(String configFile, ISteph... stephs) {
+    public StephController(String configFileName) {
 
-        this.stephs = Arrays.asList(stephs);
+        loadConfig(configFileName);
 
-        Yaml yaml = new Yaml();
-        InputStream configFileStream;
-
-        try {
-            configFileStream = new FileInputStream(new File(configFile));
-        } catch (FileNotFoundException e) {
-            System.out.println("Config file not found: " + configFile);
-            System.exit(1);
-            configFileStream = null;
-        }
-
-        config = (Map) yaml.load(configFileStream);
+        Object StephConfig = config.get("stephs");
+        System.out.println(StephConfig.toString());
 
         for (ISteph steph : stephs) {
             Map<String, Object> stephConfig = (Map<String, Object>) config.get(steph.getName());
@@ -45,7 +34,7 @@ public class StephController {
             try {
                 steph.setConfig(stephConfig);
             } catch (InvalidConfigException e) {
-                System.out.println("Invalid config in \"" + configFile + "\":");
+                System.out.println("Invalid config in \"" + configFileName + "\":");
                 e.printStackTrace();
                 System.exit(2);
             }
@@ -76,9 +65,23 @@ public class StephController {
         while (!poll()) {
             try {
                 Thread.sleep(50);
-            } catch (InterruptedException e) {
-            }
+            } catch (InterruptedException e) { }
         }
         System.out.println("Shutting down...");
+    }
+
+    private void loadConfig(String filename) {
+        Yaml yaml = new Yaml();
+        InputStream configFileStream;
+
+        try {
+            configFileStream = new FileInputStream(new File(filename));
+        } catch (FileNotFoundException e) {
+            System.out.println("Config file not found: " + filename);
+            System.exit(1);
+            configFileStream = null;
+        }
+
+        this.config = (Map) yaml.load(configFileStream);
     }
 }

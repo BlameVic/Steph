@@ -1,4 +1,4 @@
-package eu.thog92.steph.common;
+package com.github.blamevic.steph.common;
 
 public interface IEventMatcher {
     //

@@ -1,4 +1,4 @@
-package eu.thog92.steph.common.handlers.messages;
+package com.github.blamevic.steph.common.handlers.messages;
 
 import vic.mod.chat.api.bot.IChannelBase;
 import vic.mod.chat.api.bot.IChatEntity;

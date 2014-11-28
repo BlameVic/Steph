@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,54 +15,62 @@ public class StephController
 {
     Map config;
 
-    List<IMessageHandler> handlers;
-    List<ISteph> stephs;
+    List<IMessageHandler> handlers = new ArrayList<>();
+    List<ISteph> stephs = new ArrayList<>();
 
     public StephController(String configFileName)
     {
+        this.config = loadConfig(configFileName);
 
-        loadConfig(configFileName);
+        Map<String, Map<String, Object>> stephConfigs = (Map) config.get("stephs");
 
-        loadStephs();
+        for (Entry<String, Map<String, Object>> stephConfig : stephConfigs.entrySet())
+        {
+            ISteph steph = loadSteph(stephConfig.getKey());
+            setupSteph(steph, stephConfig.getValue());
+            this.stephs.add(steph);
+        }
+
+        Map<String, Map<String, Object>> matcherConfigs = (Map) config.get("handlers");
+
+        for (Entry<String, Map<String, Object>> matcherConfig : matcherConfigs.entrySet())
+        {
+            IMessageHandler handler = loadHandler(matcherConfig.getKey());
+            this.handlers.add(handler);
+        }
     }
 
-    /**
-     * Recuring method that performs polling operations on the active steph
-     *
-     * @return Returns true when the bot should exit and disconnect.
-     */
-    public boolean poll()
+    public void poll()
     {
-        boolean shouldStop = false;
+        List<ChatEvent> events = new ArrayList<>();
+
         for (ISteph steph : stephs)
         {
             while (steph.moveNextEvent())
             {
-                ChatEvent event = steph.getCurrentEvent();
-                System.out.println(event.toString());
+                events.add(steph.getCurrentEvent());
             }
         }
 
-        // steph.disconnect();
-        // return true;
-        return shouldStop;
+        for (ChatEvent event : events)
+        {
+            for (IMessageHandler handler : handlers)
+            {
+                handler.processEvent(event);
+            }
+        }
     }
 
     public void startPoll()
     {
-        while (!poll())
+        while (true)
         {
-            try
-            {
-                Thread.sleep(50);
-            } catch (InterruptedException e)
-            {
-            }
+            poll();
+            try { Thread.sleep(50); } catch (InterruptedException e) {}
         }
-        System.out.println("Shutting down...");
     }
 
-    private void loadConfig(String filename)
+    private Map loadConfig(String filename)
     {
         Yaml yaml = new Yaml();
         InputStream configFileStream;
@@ -77,40 +85,38 @@ public class StephController
             configFileStream = null;
         }
 
-        this.config = (Map) yaml.load(configFileStream);
+        return (Map) yaml.load(configFileStream);
     }
 
-    private void loadStephs()
+    private ISteph loadSteph(String className)
     {
-        Map<String, Map<String, Object>> stephConfig = (Map) config.get("stephs");
-
-        for (Entry<String, Map<String, Object>> steph : stephConfig.entrySet())
+        try
         {
-            String className = steph.getKey();
-            try
+            Class stephClass = Class.forName(className);
+
+            //If stephClass implements ISteph
+            if (ISteph.class.isAssignableFrom(stephClass))
             {
-                Class stephClass = Class.forName(className);
-                //If stephClass implements ISteph
-                if (Arrays.asList(stephClass.getInterfaces()).contains(ISteph.class))
+                try
                 {
-                    try
-                    {
-                        ISteph stephInstance = (ISteph) stephClass.newInstance();
-
-                        setupSteph(stephInstance, steph.getValue());
-
-                        this.stephs.add(stephInstance);
-                    } catch (Exception e)
-                    {
-                        System.err.println("Error initialising " + className + ":");
-                        e.printStackTrace();
-                    }
+                    return (ISteph) stephClass.newInstance();
+                } catch (Exception e)
+                {
+                    System.err.println("Error instantiating " + className + ":");
+                    e.printStackTrace();
+                    System.exit(4);
                 }
-            } catch (ClassNotFoundException ex)
+            } else
             {
-                System.out.println("Class not found:" + className);
+                System.err.println("Class " + className + " dis not assignable to ISteph");
+                System.exit(3);
             }
+        } catch (ClassNotFoundException ex)
+        {
+            System.err.println("Class not found:" + className);
+            System.exit(2);
         }
+        return null; //This will never happen!
     }
 
     private void setupSteph(ISteph steph, Map<String, Object> config)
@@ -125,10 +131,41 @@ public class StephController
             steph.setConfig(config);
         } catch (InvalidConfigException e)
         {
-            System.out.println("Invalid config for " + steph.getName() + ":");
+            System.err.println("Invalid config for " + steph.getName() + ":");
             e.printStackTrace();
-            System.exit(2);
+            System.exit(5);
         }
         steph.connect();
+    }
+
+    private IMessageHandler loadHandler(String className)
+    {
+        try
+        {
+            Class handlerClass = Class.forName(className);
+
+            //If handlerClass implements ISteph
+            if (IMessageHandler.class.isAssignableFrom(handlerClass))
+            {
+                try
+                {
+                    return (IMessageHandler) handlerClass.newInstance();
+                } catch (Exception e)
+                {
+                    System.err.println("Error instantiating " + className + ":");
+                    e.printStackTrace();
+                    System.exit(8);
+                }
+            } else
+            {
+                System.err.println("Class " + className + " is not assignable to IMessageHandler");
+                System.exit(7);
+            }
+        } catch (ClassNotFoundException ex)
+        {
+            System.err.println("Class not found:" + className);
+            System.exit(6);
+        }
+        return null; //This will never happen!
     }
 }

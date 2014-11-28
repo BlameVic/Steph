@@ -4,8 +4,8 @@ import com.github.blamevic.irc.IRCClient;
 import com.github.blamevic.irc.IRCMessageParser;
 import com.github.blamevic.steph.common.ChatEvent;
 import com.github.blamevic.steph.common.ISteph;
+import com.github.blamevic.steph.common.InvalidConfigException;
 import com.github.blamevic.steph.common.StephController;
-import com.github.blamevic.steph.common.exceptions.InvalidConfigException;
 
 import java.io.IOException;
 import java.util.ArrayList;

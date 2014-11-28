@@ -1,6 +1,5 @@
 package com.github.blamevic.steph.common;
 
-import com.github.blamevic.steph.common.exceptions.InvalidConfigException;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;

@@ -1,7 +1,5 @@
 package com.github.blamevic.steph.common;
 
-import com.github.blamevic.steph.common.exceptions.InvalidConfigException;
-
 import java.util.List;
 import java.util.Map;
 

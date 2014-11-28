@@ -6,3 +6,6 @@ stephs:
     username: StephanieDola
     realname: Stephanie Dola
     debug: true
+
+handlers:
+  com.github.blamevic.steph.handlers.HelloHandler:

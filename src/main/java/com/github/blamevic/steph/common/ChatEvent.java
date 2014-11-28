@@ -4,10 +4,10 @@ import com.github.blamevic.irc.IRCMessageParser;
 
 public class ChatEvent
 {
-    ISteph receiver;
-    IRCMessageParser.Message message;
-    StephController controller;
-    IEventMatcher matcher;
+    public ISteph receiver;
+    public IRCMessageParser.Message message;
+    public StephController controller;
+    public IEventMatcher matcher;
 
     public ChatEvent(ISteph receiver, IRCMessageParser.Message message, StephController controller, IEventMatcher matcher)
     {

@@ -56,7 +56,14 @@ public class StephController
         {
             for (IMessageHandler handler : handlers)
             {
-                handler.processEvent(event);
+                for (IEventMatcher matcher : handler.getEventMatchers())
+                {
+                    if (matcher.match(event))
+                    {
+                        handler.processEvent(event);
+                        break;
+                    }
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.github.blamevic.steph.irc;
 
+import com.github.blamevic.event.IEvent;
 import com.github.blamevic.irc.IRCClient;
 import com.github.blamevic.irc.IRCMessageParser;
 import com.github.blamevic.steph.common.ChatEvent;
@@ -32,7 +33,7 @@ public class IRCSteph implements ISteph
         client.sender.privateMessage(message, user);
     }
 
-    public ChatEvent getCurrentEvent()
+    public IEvent getCurrentEvent()
     {
         if (eventQueue.size() == 0) return null;
         return eventQueue.get(0);
@@ -61,16 +62,6 @@ public class IRCSteph implements ISteph
         client.leaveChannel(channel);
     }
 
-    public void setMainChannel(String channel)
-    {
-        mainChannel = channel;
-    }
-
-    public String getMainChannel()
-    {
-        return mainChannel;
-    }
-
     public boolean connect()
     {
         try
@@ -86,7 +77,7 @@ public class IRCSteph implements ISteph
 
     public void disconnect()
     {
-        //
+        client = null;
     }
 
     public void setConfig(Map<String, Object> config) throws InvalidConfigException
@@ -126,11 +117,6 @@ public class IRCSteph implements ISteph
         {
             throw new IllegalStateException("This Steph allready has a set controller");
         }
-    }
-
-    public String getName()
-    {
-        return "IRCSteph";
     }
 
     public void parseLines()

@@ -1,5 +1,9 @@
 package com.github.blamevic.steph.common;
 
+import com.github.blamevic.event.EventBus;
+import com.github.blamevic.event.IEvent;
+import com.github.blamevic.event.IEventMatcher;
+import com.github.blamevic.event.IEventProcessor;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;
@@ -15,7 +19,7 @@ public class StephController
 {
     Map config;
 
-    List<IMessageHandler> handlers = new ArrayList<>();
+    EventBus bus = new EventBus();
     List<ISteph> stephs = new ArrayList<>();
 
     public StephController(String configFileName)
@@ -31,18 +35,18 @@ public class StephController
             this.stephs.add(steph);
         }
 
-        Map<String, Map<String, Object>> matcherConfigs = (Map) config.get("handlers");
+        Map<String, Map<String, Object>> processorConfigs = (Map) config.get("processors");
 
-        for (Entry<String, Map<String, Object>> matcherConfig : matcherConfigs.entrySet())
+        for (Entry<String, Map<String, Object>> matcherConfig : processorConfigs.entrySet())
         {
-            IMessageHandler handler = loadHandler(matcherConfig.getKey());
-            this.handlers.add(handler);
+            IEventProcessor handler = loadHandler(matcherConfig.getKey());
+            this.bus.processors.add(handler);
         }
     }
 
     public void poll()
     {
-        List<ChatEvent> events = new ArrayList<>();
+        List<IEvent> events = new ArrayList<>();
 
         for (ISteph steph : stephs)
         {
@@ -52,19 +56,9 @@ public class StephController
             }
         }
 
-        for (ChatEvent event : events)
+        for (IEvent event : events)
         {
-            for (IMessageHandler handler : handlers)
-            {
-                for (IEventMatcher matcher : handler.getEventMatchers())
-                {
-                    if (matcher.match(event))
-                    {
-                        handler.processEvent(event);
-                        break;
-                    }
-                }
-            }
+            bus.processEvent(event);
         }
     }
 
@@ -128,7 +122,7 @@ public class StephController
 
     private void setupSteph(ISteph steph, Map<String, Object> config)
     {
-        System.out.print("Config for: " + steph.getName() + ": ");
+        System.out.print("Config for: " + steph.getClass().getCanonicalName() + ": ");
         System.out.println(config.toString());
 
         steph.setController(this);
@@ -138,25 +132,25 @@ public class StephController
             steph.setConfig(config);
         } catch (InvalidConfigException e)
         {
-            System.err.println("Invalid config for " + steph.getName() + ":");
+            System.err.println("Invalid config for " + steph.getClass().getCanonicalName() + ":");
             e.printStackTrace();
             System.exit(5);
         }
         steph.connect();
     }
 
-    private IMessageHandler loadHandler(String className)
+    private IEventProcessor loadHandler(String className)
     {
         try
         {
             Class handlerClass = Class.forName(className);
 
             //If handlerClass implements ISteph
-            if (IMessageHandler.class.isAssignableFrom(handlerClass))
+            if (IEventProcessor.class.isAssignableFrom(handlerClass))
             {
                 try
                 {
-                    return (IMessageHandler) handlerClass.newInstance();
+                    return (IEventProcessor) handlerClass.newInstance();
                 } catch (Exception e)
                 {
                     System.err.println("Error instantiating " + className + ":");

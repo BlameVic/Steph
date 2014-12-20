@@ -1,8 +1,10 @@
 package com.github.blamevic.steph.common;
 
+import com.github.blamevic.event.IEvent;
+import com.github.blamevic.event.IEventMatcher;
 import com.github.blamevic.irc.IRCMessageParser;
 
-public class ChatEvent
+public class ChatEvent implements IEvent
 {
     public ISteph receiver;
     public IRCMessageParser.Message message;

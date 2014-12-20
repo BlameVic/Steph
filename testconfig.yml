@@ -7,5 +7,5 @@ stephs:
     realname: Stephanie Dola
     debug: true
 
-handlers:
-  com.github.blamevic.steph.handlers.HelloHandler:
+processors:
+  com.github.blamevic.steph.processors.HelloProcessor:

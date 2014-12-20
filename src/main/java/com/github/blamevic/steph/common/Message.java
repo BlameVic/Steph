@@ -5,13 +5,13 @@ import com.github.blamevic.irc.IRCMessageParser;
 import static com.github.blamevic.irc.IRCMessageParser.*;
 
 public class Message {
-    public String message;
+    public String content;
     public String target;
     public String sender;
     public Boolean isPrivateMessage;
 
-    public Message(String message, String target, String sender, Boolean isPrivateMessage) {
-        this.message = message;
+    public Message(String content, String target, String sender, Boolean isPrivateMessage) {
+        this.content = content;
         this.target = target;
         this.sender = sender;
         this.isPrivateMessage = isPrivateMessage;

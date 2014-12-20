@@ -31,4 +31,12 @@ public class Message {
     {
         return new Message(privmsg.message, privmsg.target, privmsg.prefix.name, !privmsg.targetIsAChannel());
     }
+
+    public String getReplyAddress()
+    {
+        if (isPrivateMessage)
+            return sender;
+        else
+            return target;
+    }
 }

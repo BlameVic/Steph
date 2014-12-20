@@ -25,7 +25,7 @@ public class ChatEvent implements IEvent
 
     public void sendMessage(String message)
     {
-        sendMessage(message, this.message.sender);
+        sendMessage(message, this.message.getReplyAddress());
     }
 
     @Override

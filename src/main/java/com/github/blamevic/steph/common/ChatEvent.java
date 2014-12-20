@@ -2,16 +2,15 @@ package com.github.blamevic.steph.common;
 
 import com.github.blamevic.event.IEvent;
 import com.github.blamevic.event.IEventMatcher;
-import com.github.blamevic.irc.IRCMessageParser;
 
 public class ChatEvent implements IEvent
 {
     public ISteph receiver;
-    public IRCMessageParser.Message message;
+    public Message message;
     public StephController controller;
     public IEventMatcher matcher;
 
-    public ChatEvent(ISteph receiver, IRCMessageParser.Message message, StephController controller, IEventMatcher matcher)
+    public ChatEvent(ISteph receiver, Message message, StephController controller, IEventMatcher matcher)
     {
         this.receiver = receiver;
         this.message = message;
@@ -19,14 +18,14 @@ public class ChatEvent implements IEvent
         this.matcher = matcher;
     }
 
-    public void sendMessage(String message, String channel)
+    public void sendMessage(String message, String target)
     {
-        receiver.sendMessage(message, channel);
+        receiver.sendMessage(message, target);
     }
 
     public void sendMessage(String message)
     {
-        //sendMessage(message, this.message.);
+        sendMessage(message, this.message.sender);
     }
 
     @Override

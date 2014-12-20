@@ -3,10 +3,7 @@ package com.github.blamevic.steph.irc;
 import com.github.blamevic.event.IEvent;
 import com.github.blamevic.irc.IRCClient;
 import com.github.blamevic.irc.IRCMessageParser;
-import com.github.blamevic.steph.common.ChatEvent;
-import com.github.blamevic.steph.common.ISteph;
-import com.github.blamevic.steph.common.InvalidConfigException;
-import com.github.blamevic.steph.common.StephController;
+import com.github.blamevic.steph.common.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -142,6 +139,6 @@ public class IRCSteph implements ISteph
 
         IRCMessageParser.Message message = IRCMessageParser.parseMessage(line);
 
-        return new ChatEvent(this, message, this.controller, null);
+        return new ChatEvent(this, Message.fromIRCMessage(message), this.controller, null);
     }
 }

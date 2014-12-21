@@ -1,11 +1,14 @@
 package com.github.blamevic.steph.processors;
 
 import com.github.blamevic.event.EventProcessorBase;
+import com.github.blamevic.event.IEventMatcher;
 import com.github.blamevic.steph.common.ChatEvent;
 import com.github.blamevic.event.IEvent;
 import com.github.blamevic.steph.matchers.MessageContentMatcher;
 
-public class HelloProcessor extends EventProcessorBase
+import java.util.List;
+
+public class HelloProcessor extends ChatEventProcessorBase
 {
     public HelloProcessor()
     {
@@ -13,8 +16,8 @@ public class HelloProcessor extends EventProcessorBase
     }
 
     @Override
-    public void processEvent(IEvent event)
+    public void processChatEvent(ChatEvent event, List<IEventMatcher> matchedMatchers)
     {
-        ((ChatEvent)event).sendMessage("Hey!");
+        event.sendMessage("Hey!");
     }
 }

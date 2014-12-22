@@ -3,17 +3,24 @@ package com.github.blamevic.steph.processors;
 import com.github.blamevic.event.EventProcessorBase;
 import com.github.blamevic.event.IEvent;
 import com.github.blamevic.event.IEventMatcher;
+import com.github.blamevic.event.matchers.ANDMatcher;
+import com.github.blamevic.event.matchers.ORMatcher;
 import com.github.blamevic.steph.common.ChatEvent;
 import com.github.blamevic.steph.matchers.ChatEventMatcher;
 
+import java.util.Arrays;
 import java.util.List;
 
 public abstract class ChatEventProcessorBase extends EventProcessorBase {
     @Override
     public List<IEventMatcher> getEventMatchers() {
-        List<IEventMatcher> matchers = super.getEventMatchers();
-        matchers.add(new ChatEventMatcher());
-        return matchers;
+        List<IEventMatcher> eventMatchers = super.getEventMatchers();
+        return Arrays.asList(
+                new ANDMatcher(
+                        new ChatEventMatcher(),
+                        new ORMatcher(eventMatchers.toArray(new IEventMatcher[eventMatchers.size()]))
+                )
+        );
     }
 
     @Override

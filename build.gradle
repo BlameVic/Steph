@@ -20,5 +20,5 @@ dependencies {
     compile group: "org.yaml"                 , name: "snakeyaml"  , version: "1.14"
     compile group: "vic.mod.chat"             , name: "vChat"      , version: "0.2r15.9", classifier: "api"
     compile group: "com.github.blamevic.irc"  , name: "YAIL"       , version: "0.1.4"
-    compile group: "com.github.blamevic.event", name: "JRXEventLib", version: "0.3.9"
+    compile group: "com.github.blamevic.event", name: "JRXEventLib", version: "1.0.0.12"
 }

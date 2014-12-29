@@ -1,4 +1,3 @@
 Steph
 ==========
-
-Steph from #ngnl on Vchat and IRC
+A CinchRB Setup for running Steph, an IRC bot for #obsidian on espernet

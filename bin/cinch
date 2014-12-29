@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require "bundler"
+Bundler.require # Require gems in gemfile
+
+BASE_DIRECTORY = __dir__ + "/.."
+
+Dir[BASE_DIRECTORY + '/lib/*.rb'].each {|file| require file } # Load libraries
+Dir[BASE_DIRECTORY + '/plugins/*.rb'].each {|file| require file } # Load plugins
+
+@bot = Cinch::Bot.new do
+    trap "SIGINT" do
+        bot.quit
+    end
+end # New Bot
+
+require BASE_DIRECTORY + "/conf" # Load conf
+
+@bot.start # Start bot

@@ -4,7 +4,7 @@
     c.nick            = "StephanieDola"
     c.plugins.prefix = /^(?:!)|(?:Steph(?:anieDola)?[:,]? )/
 
-    c.plugins.plugins = [Steph::TestPlugin, Steph::Help, Steph::Identify]
+    c.plugins.plugins = [Steph::TestPlugin, Steph::Help, Steph::Identify, Steph::Execute]
 
     require_relative "conf.private"
 end
